@@ -2,7 +2,7 @@ module.exports = {
   title: '桃子的笔记',
   description: '书山有路勤为径，学海无涯苦作舟',
   dest: '../study',
-  base: '/',
+  base: '/study/',
   head: [
     ['link', { rel: 'icon', href: '/notebook.png' }],
     ['link', { rel: 'manifest', href: '/manifest.json' }],
