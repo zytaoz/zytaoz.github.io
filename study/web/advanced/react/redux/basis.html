@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Redux | 桃子的笔记</title>
+    <meta name="generator" content="VuePress 1.8.2">
+    <link rel="icon" href="/notebook.png">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/notebook.png">
+    <link rel="mask-icon" href="/notebook.png" color="#3eaf7c">
+    <meta name="description" content="书山有路勤为径，学海无涯苦作舟">
+    <meta name="theme-color" content="#3eaf7c">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="msapplication-TileImage" content="/notebook.png">
+    <meta name="msapplication-TileColor" content="#000000">
+    
+    <link rel="preload" href="/assets/css/0.styles.abfd52cb.css" as="style"><link rel="preload" href="/assets/js/app.b63b7579.js" as="script"><link rel="preload" href="/assets/js/2.f8045194.js" as="script"><link rel="preload" href="/assets/js/48.ccd80040.js" as="script"><link rel="prefetch" href="/assets/js/10.2262e23a.js"><link rel="prefetch" href="/assets/js/11.8a7469e0.js"><link rel="prefetch" href="/assets/js/12.02ff0a9c.js"><link rel="prefetch" href="/assets/js/13.22c86940.js"><link rel="prefetch" href="/assets/js/14.cd4b6655.js"><link rel="prefetch" href="/assets/js/15.3f775ce0.js"><link rel="prefetch" href="/assets/js/16.dd2f70d4.js"><link rel="prefetch" href="/assets/js/17.3c6bd2bc.js"><link rel="prefetch" href="/assets/js/18.3cfa4967.js"><link rel="prefetch" href="/assets/js/19.cfe49fa2.js"><link rel="prefetch" href="/assets/js/20.c8c7babb.js"><link rel="prefetch" href="/assets/js/21.112b8622.js"><link rel="prefetch" href="/assets/js/22.29380813.js"><link rel="prefetch" href="/assets/js/23.3bd30cf5.js"><link rel="prefetch" href="/assets/js/24.a0dbbde8.js"><link rel="prefetch" href="/assets/js/25.df6944b2.js"><link rel="prefetch" href="/assets/js/26.e8739fbd.js"><link rel="prefetch" href="/assets/js/27.a04bb6fb.js"><link rel="prefetch" href="/assets/js/28.f9930d9e.js"><link rel="prefetch" href="/assets/js/29.6c2b9797.js"><link rel="prefetch" href="/assets/js/3.122e0a11.js"><link rel="prefetch" href="/assets/js/30.601d4783.js"><link rel="prefetch" href="/assets/js/31.75d4ddde.js"><link rel="prefetch" href="/assets/js/32.aaf38103.js"><link rel="prefetch" href="/assets/js/33.bc02dca6.js"><link rel="prefetch" href="/assets/js/34.45540393.js"><link rel="prefetch" href="/assets/js/35.748845cc.js"><link rel="prefetch" href="/assets/js/36.9fddd0d8.js"><link rel="prefetch" href="/assets/js/37.6177afa4.js"><link rel="prefetch" href="/assets/js/38.b82e7e97.js"><link rel="prefetch" href="/assets/js/39.d2ca9a95.js"><link rel="prefetch" href="/assets/js/4.ec68808a.js"><link rel="prefetch" href="/assets/js/40.da46eb54.js"><link rel="prefetch" href="/assets/js/41.5d11c1bc.js"><link rel="prefetch" href="/assets/js/42.37010acc.js"><link rel="prefetch" href="/assets/js/43.1db9faa9.js"><link rel="prefetch" href="/assets/js/44.e305b693.js"><link rel="prefetch" href="/assets/js/45.12e7edbb.js"><link rel="prefetch" href="/assets/js/46.eb5e2a23.js"><link rel="prefetch" href="/assets/js/47.6b812492.js"><link rel="prefetch" href="/assets/js/49.c24e31d5.js"><link rel="prefetch" href="/assets/js/5.dfde9305.js"><link rel="prefetch" href="/assets/js/50.f0b8a754.js"><link rel="prefetch" href="/assets/js/51.76f779b3.js"><link rel="prefetch" href="/assets/js/52.e2eaf161.js"><link rel="prefetch" href="/assets/js/53.ab06a108.js"><link rel="prefetch" href="/assets/js/54.4cab4c76.js"><link rel="prefetch" href="/assets/js/55.82f87c8b.js"><link rel="prefetch" href="/assets/js/56.c984cb73.js"><link rel="prefetch" href="/assets/js/57.3ad094ff.js"><link rel="prefetch" href="/assets/js/58.d65ab671.js"><link rel="prefetch" href="/assets/js/59.a163ddf8.js"><link rel="prefetch" href="/assets/js/6.4b3d877f.js"><link rel="prefetch" href="/assets/js/60.0fa5f770.js"><link rel="prefetch" href="/assets/js/61.39555009.js"><link rel="prefetch" href="/assets/js/62.ed1960b7.js"><link rel="prefetch" href="/assets/js/63.642801d3.js"><link rel="prefetch" href="/assets/js/64.ff6d0f63.js"><link rel="prefetch" href="/assets/js/7.d15a97fd.js"><link rel="prefetch" href="/assets/js/8.aabafdf8.js"><link rel="prefetch" href="/assets/js/9.7b3576a3.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.abfd52cb.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">桃子的笔记</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="web前端" class="dropdown-title"><span class="title">web前端</span> <span class="arrow down"></span></button> <button type="button" aria-label="web前端" class="mobile-dropdown-title"><span class="title">web前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>
+          基础
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/web/basis/html.html" class="nav-link">
+  HTML &amp; CSS
+</a></li><li class="dropdown-subitem"><a href="/web/basis/variable.html" class="nav-link">
+  JavaScript 基础
+</a></li><li class="dropdown-subitem"><a href="/web/basis/closure.html" class="nav-link">
+  三座大山
+</a></li><li class="dropdown-subitem"><a href="/web/basis/bom.html" class="nav-link">
+  web API
+</a></li><li class="dropdown-subitem"><a href="/web/basis/es6.html" class="nav-link">
+  ES6
+</a></li></ul></li><li class="dropdown-item"><h4>
+          进阶
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/web/advanced/ts/basis.html" class="nav-link">
+  TypeScript
+</a></li><li class="dropdown-subitem"><a href="/web/advanced/vue/basis.html" class="nav-link">
+  Vue
+</a></li><li class="dropdown-subitem"><a href="/web/advanced/react/basis.html" class="nav-link">
+  React
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="服务端" class="dropdown-title"><span class="title">服务端</span> <span class="arrow down"></span></button> <button type="button" aria-label="服务端" class="mobile-dropdown-title"><span class="title">服务端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>
+          语言
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/server/node/koa.html" class="nav-link">
+  NodeJS
+</a></li><li class="dropdown-subitem"><a href="/server/php/basis/basis.html" class="nav-link">
+  PHP
+</a></li><li class="dropdown-subitem"><a href="/server/java/" class="nav-link">
+  Java
+</a></li><li class="dropdown-subitem"><a href="/server/python/" class="nav-link">
+  Python
+</a></li><li class="dropdown-subitem"><a href="/server/mysql/basis.html" class="nav-link">
+  MySql
+</a></li></ul></li><li class="dropdown-item"><h4>
+          其他
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/server/server/" class="nav-link">
+  服务器相关
+</a></li><li class="dropdown-subitem"><a href="/server/JWT/" class="nav-link">
+  JWT
+</a></li><li class="dropdown-subitem"><a href="/server/TCP/" class="nav-link">
+  TCP/IP
+</a></li><li class="dropdown-subitem"><a href="/server/socket/" class="nav-link">
+  Socket
+</a></li><li class="dropdown-subitem"><a href="/wechat/" class="nav-link">
+  微信相关
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="开发工具" class="dropdown-title"><span class="title">开发工具</span> <span class="arrow down"></span></button> <button type="button" aria-label="开发工具" class="mobile-dropdown-title"><span class="title">开发工具</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/tools/git.html" class="nav-link">
+  Git
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="项目" class="dropdown-title"><span class="title">项目</span> <span class="arrow down"></span></button> <button type="button" aria-label="项目" class="mobile-dropdown-title"><span class="title">项目</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/projects/hopesnack.html" class="nav-link">
+  希望小卖铺
+</a></li><li class="dropdown-item"><!----> <a href="/projects/testhub.html" class="nav-link">
+  在线刷题
+</a></li><li class="dropdown-item"><!----> <a href="/projects/alfred/" class="nav-link">
+  Alfred
+</a></li></ul></div></div><div class="nav-item"><a href="/other/偏激.html" class="nav-link">
+  其他
+</a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="web前端" class="dropdown-title"><span class="title">web前端</span> <span class="arrow down"></span></button> <button type="button" aria-label="web前端" class="mobile-dropdown-title"><span class="title">web前端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>
+          基础
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/web/basis/html.html" class="nav-link">
+  HTML &amp; CSS
+</a></li><li class="dropdown-subitem"><a href="/web/basis/variable.html" class="nav-link">
+  JavaScript 基础
+</a></li><li class="dropdown-subitem"><a href="/web/basis/closure.html" class="nav-link">
+  三座大山
+</a></li><li class="dropdown-subitem"><a href="/web/basis/bom.html" class="nav-link">
+  web API
+</a></li><li class="dropdown-subitem"><a href="/web/basis/es6.html" class="nav-link">
+  ES6
+</a></li></ul></li><li class="dropdown-item"><h4>
+          进阶
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/web/advanced/ts/basis.html" class="nav-link">
+  TypeScript
+</a></li><li class="dropdown-subitem"><a href="/web/advanced/vue/basis.html" class="nav-link">
+  Vue
+</a></li><li class="dropdown-subitem"><a href="/web/advanced/react/basis.html" class="nav-link">
+  React
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="服务端" class="dropdown-title"><span class="title">服务端</span> <span class="arrow down"></span></button> <button type="button" aria-label="服务端" class="mobile-dropdown-title"><span class="title">服务端</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><h4>
+          语言
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/server/node/koa.html" class="nav-link">
+  NodeJS
+</a></li><li class="dropdown-subitem"><a href="/server/php/basis/basis.html" class="nav-link">
+  PHP
+</a></li><li class="dropdown-subitem"><a href="/server/java/" class="nav-link">
+  Java
+</a></li><li class="dropdown-subitem"><a href="/server/python/" class="nav-link">
+  Python
+</a></li><li class="dropdown-subitem"><a href="/server/mysql/basis.html" class="nav-link">
+  MySql
+</a></li></ul></li><li class="dropdown-item"><h4>
+          其他
+        </h4> <ul class="dropdown-subitem-wrapper"><li class="dropdown-subitem"><a href="/server/server/" class="nav-link">
+  服务器相关
+</a></li><li class="dropdown-subitem"><a href="/server/JWT/" class="nav-link">
+  JWT
+</a></li><li class="dropdown-subitem"><a href="/server/TCP/" class="nav-link">
+  TCP/IP
+</a></li><li class="dropdown-subitem"><a href="/server/socket/" class="nav-link">
+  Socket
+</a></li><li class="dropdown-subitem"><a href="/wechat/" class="nav-link">
+  微信相关
+</a></li></ul></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="开发工具" class="dropdown-title"><span class="title">开发工具</span> <span class="arrow down"></span></button> <button type="button" aria-label="开发工具" class="mobile-dropdown-title"><span class="title">开发工具</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/tools/git.html" class="nav-link">
+  Git
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="项目" class="dropdown-title"><span class="title">项目</span> <span class="arrow down"></span></button> <button type="button" aria-label="项目" class="mobile-dropdown-title"><span class="title">项目</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/projects/hopesnack.html" class="nav-link">
+  希望小卖铺
+</a></li><li class="dropdown-item"><!----> <a href="/projects/testhub.html" class="nav-link">
+  在线刷题
+</a></li><li class="dropdown-item"><!----> <a href="/projects/alfred/" class="nav-link">
+  Alfred
+</a></li></ul></div></div><div class="nav-item"><a href="/other/偏激.html" class="nav-link">
+  其他
+</a></div> <!----></nav>  <ul class="sidebar-links"><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading"><span>React</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable depth-0"><p class="sidebar-heading open"><span>Redux</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/web/advanced/react/redux/basis.html" aria-current="page" class="active sidebar-link">基础概念</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/web/advanced/react/redux/basis.html#三大原则" class="sidebar-link">三大原则</a></li><li class="sidebar-sub-header"><a href="/web/advanced/react/redux/basis.html#工作流程" class="sidebar-link">工作流程</a></li><li class="sidebar-sub-header"><a href="/web/advanced/react/redux/basis.html#基础使用" class="sidebar-link">基础使用</a></li><li class="sidebar-sub-header"><a href="/web/advanced/react/redux/basis.html#抽离" class="sidebar-link">抽离</a></li><li class="sidebar-sub-header"><a href="/web/advanced/react/redux/basis.html#核心-api-归纳" class="sidebar-link">核心 API 归纳</a></li></ul></li><li><a href="/web/advanced/react/redux/middleware.html" class="sidebar-link">中间件</a></li><li><a href="/web/advanced/react/redux/react-redux.html" class="sidebar-link">React-redux</a></li><li><a href="/web/advanced/react/redux/combineReducers.html" class="sidebar-link">拆分 reducer</a></li></ul></section></li><li><a href="/web/advanced/react/hook.html" class="sidebar-link">Hook</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="redux"><a href="#redux" class="header-anchor">#</a> Redux</h1> <div class="custom-block tip"><p class="custom-block-title">为什么要用 Redux</p> <p><code>React</code> 只是一个视图层的框架，如果涉及到层级非常多的大型项目，那么管理数据将会是非常麻烦的事情，这时候就需要使用到 <code>Redux</code></p></div> <p><strong>使用 <code>Redux</code> 和不使用 <code>Redux</code> 的区别</strong> <br></p> <img src="/react/redux/index.png"> <p>在使用 <code>Redux</code> 之前，如果下面的一个组件修改了一个数据，而这个数据需要相应到其他层级的组件时，就需要一步步的通过组件去传递。这样是非常麻烦且不利于维护的。</p> <p>如果使用 <code>Redux</code> 的以后， <code>Redux</code> 提供了一个公共的 <code>Store</code> 来存储所有的公共数据。这时候如果有一个组件修改了数据，那么他会将数据更新到 <code>Store</code> ，而其他组件会自动感知到数据的修改，然后从 <code>Store</code> 拉取最新的数据。这样的话，不管层级有多深，逻辑都会变得简单明了。</p> <h2 id="三大原则"><a href="#三大原则" class="header-anchor">#</a> 三大原则</h2> <div class="custom-block tip"><p class="custom-block-title">Redux 三大原则</p> <p>1、<code>store</code> 必须是唯一的 <br>
+2、只有 <code>store</code> 可以改变 <code>store</code> 的内容 <br>
+3、<code>Reducers</code> 必须是纯函数。</p></div> <p><strong>什么是纯函数？</strong><br>
+纯函数就是指只要给定固定输入，就一定会有固定输出，且没有副作用的函数。纯函数不会有异步操作和获取时间的操作。<code>reducer</code> 中也不允许直接修改 <code>store</code> 的内容，只可以返回给 <code>store</code> 内容。</p> <h2 id="工作流程"><a href="#工作流程" class="header-anchor">#</a> 工作流程</h2> <p>首先来看一张图
+<img src="/react/redux/redux-flow.png">
+这张图一共有四个部分</p> <ul><li><code>React Components</code> 即组件，为了方便理解可以想象为<code>借书的人</code></li> <li><code>Action Creators</code> 即获取 <code>store</code> 数据的操作，为了方便理解可以想象成<code>借书的动作</code></li> <li><code>Store</code> 即数据存放处，为了方便理解可以想象为<code>图书馆管理员</code></li> <li><code>Reducers</code> 即用来保存数据的地方，为了方便理解可以想象为<code>记录图书存放位置的册子</code></li></ul> <p>首先<code>借书的人</code>需要对<code>图书管理员</code>说一句话，以用来表达我要借什么书，<code>图书管理员</code>听到借书的请求后，他需要去查阅<code>记录图书存放位置的册子</code>来找到这本书，找到这边书后，<code>图书管理员</code>再将书交给<code>借书的人</code>。</p> <h2 id="基础使用"><a href="#基础使用" class="header-anchor">#</a> 基础使用</h2> <ul><li>作为 <code>Redux</code> 中最关键的部件，需要先建立一个 <code>store</code> 文件</li></ul> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">// store.js</span>
+
+<span class="token comment">// 首先引入 redux</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> createStore <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'redux'</span><span class="token punctuation">;</span>
+<span class="token comment">// reducers 是用来存放数据的地方</span>
+<span class="token keyword">import</span> reducers <span class="token keyword">from</span> <span class="token string">'./reducers'</span><span class="token punctuation">;</span>
+
+<span class="token comment">// createStore 方法创建一个 store，然后将 reducers 传进去，store 就能获取到数据了，后面那句是开启 Chrome 的 redux-devtools</span>
+<span class="token keyword">const</span> store <span class="token operator">=</span> <span class="token function">createStore</span><span class="token punctuation">(</span>
+  reducers<span class="token punctuation">,</span>
+  window<span class="token punctuation">.</span>__REDUX_DEVTOOLS_EXTENSION__ <span class="token operator">&amp;&amp;</span> window<span class="token punctuation">.</span><span class="token function">__REDUX_DEVTOOLS_EXTENSION__</span><span class="token punctuation">(</span><span class="token punctuation">)</span>  
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> store<span class="token punctuation">;</span>
+</code></pre></div><ul><li>创建好 <code>store</code> 文件后，再来创建一个 <code>reducers</code> 文件用来存放数据</li></ul> <div class="custom-block warning"><p class="custom-block-title">不要直接在 reducers 中修改 state</p> <p><code>reducers</code> 可以用来接收数据，接收后将数据进行深拷贝，再对新的数据进行修改，最后返回新的数据，数据将会自动返回给 <code>store</code></p></div> <div class="language-javascript extra-class"><div class="highlight-lines"><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><div class="highlighted"> </div><div class="highlighted"> </div><br><br><br><br><br><br><br></div><pre class="language-javascript"><code><span class="token comment">// reducers.js</span>
+
+<span class="token comment">// 初始化数据</span>
+<span class="token keyword">const</span> defaultState <span class="token operator">=</span> <span class="token punctuation">{</span>
+  inputValue<span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+  list<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment">/**
+ * reducers 会返回一个数组，数组接受两个参数
+ * state 记录是上一次操作的数据
+ * action 是个对象，键名type记录是的用户当前的操作，键名value是操作返回的新数据
+ */</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token punctuation">(</span><span class="token parameter">state<span class="token punctuation">,</span> action</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 检测用户传过来的操作名称，依次来确定操作哪个数据</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>action<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'change_input_value'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 需要注意的是这里不能直接修改 state，可以将元数据深拷贝一份出来操作</span>
+    <span class="token keyword">const</span> newState <span class="token operator">=</span> _<span class="token punctuation">.</span><span class="token function">cloneDeep</span><span class="token punctuation">(</span>state<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    newState<span class="token punctuation">.</span>inputValue <span class="token operator">=</span> action<span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+    <span class="token comment">// 修改好新的数据后将数据直接返回到 store</span>
+    <span class="token keyword">return</span> newState<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><ul><li>组件里面也要进行对应的操作</li></ul> <div class="language-javascript extra-class"><div class="highlight-lines"><br><br><br><br><br><br><br><br><br><div class="highlighted"> </div><br><br><div class="highlighted"> </div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><div class="highlighted"> </div><div class="highlighted"> </div><br><br><div class="highlighted"> </div><br><br><br><br><br><div class="highlighted"> </div><br><br><br></div><pre class="language-javascript"><code><span class="token comment">// AntdTodo.js 组件</span>
+
+<span class="token comment">// 获取 store</span>
+<span class="token keyword">import</span> store <span class="token keyword">from</span> <span class="token string">'./store'</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">AntdTodo</span> <span class="token keyword">extends</span> <span class="token class-name">React<span class="token punctuation">.</span>Component</span> <span class="token punctuation">{</span>
+  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">props</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">super</span><span class="token punctuation">(</span>props<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">// getState() 方法是 store 的一个方法，他会返回 store 获取到的数据，将 getState() 赋值给 this.state 可以让组件直接获取到 redux 中的值</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>state <span class="token operator">=</span> store<span class="token punctuation">.</span><span class="token function">getState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token comment">// 一旦store发生变化，store.subscribe 会感知到</span>
+    store<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>handleStoreChange<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 使用 bind 将 this 的指向固定</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>handleInputChange <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">handleInputChange</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>handleStoreChange <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">handleStoreChange</span><span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token operator">&lt;</span>input
+      type<span class="token operator">=</span><span class="token string">&quot;text&quot;</span>
+      value<span class="token operator">=</span><span class="token punctuation">{</span> <span class="token keyword">this</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>inputValue <span class="token punctuation">}</span>
+      onChange<span class="token operator">=</span><span class="token punctuation">{</span> <span class="token keyword">this</span><span class="token punctuation">.</span>handleInputChange <span class="token punctuation">}</span>
+    <span class="token operator">/</span><span class="token operator">&gt;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">// input onchange 触发的函数</span>
+  <span class="token function">handleInputChange</span><span class="token punctuation">(</span><span class="token parameter">e</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 生成 action，type 对应的是 reducers 中的 action.type</span>
+    <span class="token keyword">const</span> action <span class="token operator">=</span> <span class="token punctuation">{</span>
+      type<span class="token operator">:</span> <span class="token string">&quot;change_input_value&quot;</span><span class="token punctuation">,</span>
+      value<span class="token operator">:</span> e<span class="token punctuation">.</span>target<span class="token punctuation">.</span>value
+    <span class="token punctuation">}</span>
+    <span class="token comment">// 固定格式，将 action 传给 store</span>
+    store<span class="token punctuation">.</span><span class="token function">dispatch</span><span class="token punctuation">(</span>action<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token comment">// store.subscribe 触发的函数，该函数会在 store 发生改变的时候触发</span>
+  <span class="token function">handleStoreChange</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 直接将 store.getState() 函数直接赋值给 state 即可</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setState</span><span class="token punctuation">(</span>store<span class="token punctuation">.</span><span class="token function">getState</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="抽离"><a href="#抽离" class="header-anchor">#</a> 抽离</h2> <h3 id="actiontypes"><a href="#actiontypes" class="header-anchor">#</a> actionTypes</h3> <p>从上面的例子我们看到，组件内 <code>action</code> 的 <code>type</code> 和 <code>reducers</code> 中的 <code>action</code> 的 <code>type</code> 的名字必须要完全吻合，否则 <code>reducers</code> 就没有办法知道你需要更新哪一个 <code>state</code>。</p> <p>那这样就会碰到一个问题，因为这里的 <code>type</code> 都是使用字符串来定义的，而字符串一旦拼错，在代码中是不会报错的。这样可能会无意识间增加编码成本。</p> <p>这时候就可以将 <code>types</code> 抽离出来作为一个公共的文件来使用。</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">// redux/actionTypes.js </span>
+
+<span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token constant">CHANGE_INPUT_VALUE</span> <span class="token operator">=</span> <span class="token string">'change_input_value'</span><span class="token punctuation">;</span>
+</code></pre></div><p>使用一个常量来定义它，并将它分别引入组件和 <code>reducers</code> 内部。</p> <h3 id="actioncretor"><a href="#actioncretor" class="header-anchor">#</a> actionCretor</h3> <p>在上面那个例子中，我们将 <code>action</code> 直接定义在了组件中，如果实际业务就像这个例子一样就还好，但是一旦业务复杂起来，这样做将会变得很难维护。这时候就需要将所有的 <code>action</code> 抽离出来到一个公共的文件。</p> <div class="language-javascript extra-class"><pre class="language-javascript"><code><span class="token comment">// redux/actionCreator.js</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> <span class="token constant">CHANGE_INPUT_VALUE</span> <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./actionTypes.js'</span>
+
+<span class="token keyword">export</span> <span class="token keyword">const</span> <span class="token function-variable function">getInputChangeValueFunc</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
+  type<span class="token operator">:</span> <span class="token constant">CHANGE_INPUT_VALUE</span><span class="token punctuation">,</span>
+  value
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre></div><p>这个函数直接返回一个 <code>action</code> 对象，他接受一个参数，就是需要修改的 <code>action</code> 的值。而组件只需要直接引入该函数，然后将值传进来就好了。</p> <p>这样的代码相对于上例中的代码，可维护性要提高很多。</p> <h2 id="核心-api-归纳"><a href="#核心-api-归纳" class="header-anchor">#</a> 核心 API 归纳</h2> <h3 id="createstore"><a href="#createstore" class="header-anchor">#</a> createStore</h3> <p><code>createStore</code> 可以帮助我们创建一个 <code>store</code>，该函数一般是在 <code>store.js</code> 内定义使用。</p> <h3 id="store-dispatch"><a href="#store-dispatch" class="header-anchor">#</a> store.dispatch</h3> <p><code>store.dispatch</code> 是 <code>store</code> 的方法，它用来派发 <code>action</code> 给 <code>store</code>，这个方法一般是在组件内使用。</p> <h3 id="store-getstate"><a href="#store-getstate" class="header-anchor">#</a> store.getState</h3> <p><code>store.getState</code> 用来获取 <code>store</code> 中的所有内容。这个方法一般是在组件内 <code>constructor</code> 中直接赋值给 <code>this.state</code>。</p> <h3 id="store-subscribe"><a href="#store-subscribe" class="header-anchor">#</a> store.subscribe</h3> <p><code>store.subscribe</code> 用来订阅监听 <code>store</code> 的变化，这个方法接受一个函数，一旦 <code>store</code> 发生变化，该方法就会执行接受的函数以响应数据。</p></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/web/advanced/react/lifecycle.html" class="prev">
+        生命周期
+      </a></span> <span class="next"><a href="/web/advanced/react/redux/middleware.html">
+        中间件
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.b63b7579.js" defer></script><script src="/assets/js/2.f8045194.js" defer></script><script src="/assets/js/48.ccd80040.js" defer></script>
+  </body>
+</html>
