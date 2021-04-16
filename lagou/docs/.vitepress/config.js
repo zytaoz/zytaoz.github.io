@@ -1,3 +1,4 @@
 module.exports = {
-  "base": 'study'
+  dest: "../study",
+  base: "/study/"
 }
