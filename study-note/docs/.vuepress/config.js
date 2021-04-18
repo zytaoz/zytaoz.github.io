@@ -266,7 +266,7 @@ module.exports = {
           children: [
             {
               title: '函数式编程',
-              path: 'path1/functional-programming.md'
+              path: 'path1/FP.md'
             }
           ]
         },
@@ -402,7 +402,7 @@ module.exports = {
             items: [
               {
                 text: 'JavaScript 深度剖析',
-                link: '/course/lagou/path1/functional-programming.md'
+                link: '/course/lagou/path1/FP.md'
               },
               {
                 text: '前端工程化实战',
