@@ -236,12 +236,6 @@ module.exports = {
           ]
         }
       ],
-      '/server/python/': [
-        {
-          title: 'python',
-          path: '/'
-        }
-      ],
       '/server/mysql/': [
         {
           title: 'MySQL',
@@ -265,7 +259,27 @@ module.exports = {
           path: 'testhub'
         }
       ],
-      '/other/': ['偏激', 'upset']
+      '/other/': ['偏激', 'upset'],
+      '/course/lagou/': [
+        {
+          title: 'JavaScript 深度剖析',
+          children: [
+            {
+              title: '函数式编程',
+              path: 'path1/functional-programming.md'
+            }
+          ]
+        },
+        {
+          title: '前端工程化实战',
+          children: [
+            {
+              title: '脚手架',
+              path: 'path2/cli.md'
+            }
+          ]
+        }
+      ]
     },
     nav: [
       {
@@ -338,10 +352,6 @@ module.exports = {
                 link: '/server/java/'
               },
               {
-                text: 'Python',
-                link: '/server/python/'
-              },
-              {
                 text: 'MySql',
                 link: '/server/mysql/basis'
               }
@@ -371,15 +381,34 @@ module.exports = {
                 link: '/wechat/'
               }
             ]
+          },
+          {
+            text: '开发工具',
+            items: [
+              {
+                text: 'Git',
+                link: '/tools/git'
+              }
+            ]
           }
         ]
       },
       {
-        text: '开发工具',
+        text: '课程',
         items: [
           {
-            text: 'Git',
-            link: '/tools/git'
+            text: '拉勾大前端',
+            link: '/course/lagou',
+            items: [
+              {
+                text: 'JavaScript 深度剖析',
+                link: '/course/lagou/path1/functional-programming.md'
+              },
+              {
+                text: '前端工程化实战',
+                link: '/course/lagou/path2/cli.md'
+              }
+            ]
           }
         ]
       },
