@@ -1,7 +1,7 @@
 ---
 home: true
 heroImage: /note.png
-actionText: 进度
+actionText: 开始
 actionLink: plan
 lang: zh-CN
 ---

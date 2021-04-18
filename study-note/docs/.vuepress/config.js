@@ -422,10 +422,6 @@ module.exports = {
           {
             text: '在线刷题',
             link: '/projects/testhub'
-          },
-          {
-            text: 'Alfred',
-            link: '/projects/alfred/'
           }
         ]
       },
