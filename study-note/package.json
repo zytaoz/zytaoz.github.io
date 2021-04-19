@@ -4,6 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
+    "@vuepress/plugin-pwa": "^1.8.2",
+    "@vuepress/theme-blog": "^2.3.3",
     "vuepress": "^1.8.2",
     "vuepress-plugin-demo-code": "^0.5.2"
   },
@@ -12,6 +14,8 @@
     "docs:build": "vuepress build docs"
   },
   "dependencies": {
-    "markdown-it-task-lists": "^2.1.1"
+    "markdown-it-task-lists": "^2.1.1",
+    "vuepress-theme-antdocs": "^1.2.2",
+    "vuepress-theme-reco": "^1.6.6"
   }
 }

@@ -4,5 +4,6 @@ var sidebar = require('./sidebar');
 module.exports = {
   sidebar: sidebar,
   nav: nav,
-  lastUpdated: '最后更新'
+  lastUpdated: '最后更新',
+  logo: '/logo.png',
 }
