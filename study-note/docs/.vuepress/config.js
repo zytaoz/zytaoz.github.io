@@ -17,6 +17,7 @@ module.exports = {
     codePen
   ],
   markdown: {
-    extendMarkdown: md => {}
+    extendMarkdown: md => {},
+    lineNumbers: true
   }
 }
