@@ -85,8 +85,8 @@ const wxm = candyKids(1, '王小明'); // => 给1班的王小明小朋友发糖�
 const curryClass = _.curry(candyKids)
 
 // 柯里化后的 candyKids 函数可以继续接受两个参数
-const lxr = curryClass(3, '赵小冉');
-console.log(lxr); // => 给3班的赵小冉小朋友发糖果
+const zxr = curryClass(3, '赵小冉');
+console.log(zxr); // => 给3班的赵小冉小朋友发糖果
 
 // 可以接受一个参数，返回一个新的函数，然后将第二个参数传递给返回的这个新函数。
 const lxh = curryClass(2)('李晓红');
@@ -104,6 +104,7 @@ console.log(wxm); // => 给1班的王小明小朋友发糖果
 - 提高函数粒度，在函数式编程中有利于函数进行组合。
 
 ### 如何手动实现一个柯里化方法
+
 ## 函数组合
 
 
