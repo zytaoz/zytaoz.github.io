@@ -17,7 +17,9 @@ module.exports = {
     codePen
   ],
   markdown: {
-    extendMarkdown: md => {},
+    extendMarkdown: md => {
+      md.use(require('markdown-it-task-lists'))
+    },
     lineNumbers: true
   }
 }
