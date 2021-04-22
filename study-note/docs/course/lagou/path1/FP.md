@@ -170,6 +170,8 @@ console.log(wxm); // => 给1班的王小明小朋友发糖果
 // lodash/fp 模块的使用
 ```
 
+### Point Free 模式
+
 ## Functor (函子) 
 
 ## 本篇刻意练习
