@@ -215,9 +215,41 @@ Either 函子可以定位异常的位置，他就是直接定义两个函子，�
 
 ### IO 函子
 > IO 是指 input output，即输入输出。
-## 本篇刻意练习
+IO 函子通过上面说的 value 包装了一个函数，这个函数可能包含一些不是纯函数的函数。但是 IO 函子本身是一个纯函数，他通过 map 函数返回的那个值，也就是 value 是一个不纯的函数，而直接把这个不纯的函数出来交给用户自己去执行。
+> 写事例
+``` javascript
+// IO 函子
+```
+
+### task 函子
+使用 folktale 的 task 来
+::: tip
+task 函子用来处理异步任务
+:::
+
+### Pointed 函子
+- pointed 函子就是实现了静态方法的函子，就和上面的 of 静态方法是一样的。
+- of 方法就是为了避免使用 new 来创建对象，按照上面的理解，of 静态方法会把值放到一个新的函子中。（这里用文字很难描述，最好的还是等代码全部补全之后）
+
+### Monad 单子函子
+- 这他吗都是啥
+
+- 如果碰到两个函子嵌套的情况，那么读取他返回的值会比较麻烦，这时候就可以在函子内部定义一个 join 方法，这个 join 方法会直接返回函子的 value
+
+<br>
+
+::: danger
+函子这一块有很多问题，老师讲的太复杂了，完全看不懂，需要从函子最开始的位置重新开，然后全部实现一下，也许就能明白了。
+:::
+
+## 刻意练习
 - 手动实现柯里化函数
 - 手动实现函数组合函数
 - 柯里化与函数组合放在一起使用（子函数有多个参数）
+- 函子！函子！！函子！！！完全没看懂 😭
 
 ## 参考资料
+- [lodash](https://www.lodashjs.com)
+- [folktale](https://folktale.origamitower.com)
+- [class 静态方法](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes#静态方法)
+- [reduce 方法](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce)

@@ -248,8 +248,21 @@ module.exports = {
       title: 'JavaScript 深度剖析',
       children: [
         {
-          title: '函数式编程',
-          path: 'path1/FP.md'
+          title: '模块一',
+          children: [
+            {
+              title: '函数式编程',
+              path: 'path1/FP.md'
+            },
+            {
+              title: 'JavaScript 异步编程',
+              path: 'path1/async.md'
+            },
+            {
+              title: '手写 Promise 源码',
+              path: 'path1/promise.md'
+            }
+          ]
         }
       ]
     },
