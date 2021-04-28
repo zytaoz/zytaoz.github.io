@@ -142,13 +142,31 @@ console.log(findArrayNumber([' ', '12'])); // => ['12']
 
 ### 如何手动实现一个柯里化方法
 老师实现的思路很好，可以按照需求来完成具体功能。
-- 该函数会返回一个函数。
-- 返回的函数可以接受参数。
-- 该函数可以接受多个函数作为变量。
-- 如果传入的变量大于等于所需的变量，那么就直接返回函数运行结果。
-``` javascript
-// 手动实现柯里化方法
+- 新的 `curry` 函数会接受一个函数并且返回一个函数
+- 返回的这个函数也会接受参数，且参数数量不一定等于接受函数的数量
+- 如果小于就返回一个新的函数，新函数再将接受函数的参数和返回函数的参数合并在一起，交给返回函数进行递归
+- 如果不小于就直接将返回函数的参数放入接受函数中开始调用，并返回调用结果
+
+``` javascript {10}
+function myCurry (func) {
+  // curry 接受一个函数，并且返回一个函数，返回的这个函数也接受参数
+  return function curried(...arges) {
+    if (arges.length < func.length) {
+      // 如果返回函数的参数数量小于接受函数的参数数量，那么就返回一个新的函数
+      return function() {
+        // 新的函数要把返回函数的参数和接受函数的参数合并在一起，然后重新放进返回函数内进行递归调用
+        // 并且将递归的结果返回出去
+        // 两个数组合并出来的是一个新的数据，但是返回函数接受的不是数组，所以需要把他拆分开来
+        return curried(...arges.concat(Array.from(arguments)));
+      }
+    }
+    // 如果返回函数的参数大于等于接受函数的函数，那么就直接把返回函数的参数放进接受函数内去执行他，并返回执行的结果
+    return func(...arges);
+  }
+}
 ```
+> 这里是需要反复回来看的，就和深拷贝的道理一样，只有明白原理才能信手拈来。死记硬背只能转头就忘。
+
 ## 函数组合
 ::: tip 定义
 函数式编程要求尽可能的一个函数只做一件事情，在需要一个比较复杂的需求的时候，就需要把很多个小粒度的函数组合成一个大的函数。这样的组合就叫做函数组合。
@@ -160,6 +178,59 @@ console.log(findArrayNumber([' ', '12'])); // => ['12']
 - **函数组合里面的函数只允许接受一个参数。**
 - **函数组合都是从右往左来执行的**
 
+``` javascript
+// 函数组合，一个简单的，接受两个函数的函数组合
+function compose(fn1, fn2) {
+  return function(val) {
+    return fn1(fn2(val))
+  }
+}
+
+/**
+ * 获取到函数的最后一个数字，这里为了演示函数组合，把这个操作分成两个步骤
+ * 1、把数组反转
+ * 2、获取数组第一位
+ */
+const reverse = arr => arr.reverse();
+const first = arr => arr[0];
+// 先反转再获取第一个
+const newCompose = compose(first, reverse);
+console.log(newCompose([1, 2, 3, 4])); // => 4
+
+// 使用 lodash 中的 flowRight 方法
+const _ = require('lodash');
+// 把指转换成大写
+const toUpper = str => str.toUpperCase();
+
+const newToUpperFunc = _.flowRight(toUpper, first, reverse);
+console.log(newToUpperFunc(['one', 'two', 'three'])); // => THREE
+```
+
+### 手动实现一个函数组合的方法
+**分析**
+- 参数数量不固定
+- 返回是一个函数
+- 接受的参数都是纯函数
+- 从右到左执行接受的函数
+
+> 关键字是数组的方法 [reduce](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce)，其他的都不难，关键就是这个 `reduce`。
+``` javascript
+// 手动实现一个函数组合方法
+
+// 函数组合方法接受多个参数
+function compose(...args) {
+  // 函数组合方法会返回一个函数，返回的函数同时会接受一个参数，这个参数是初始值
+  return function(val) {
+    // 反转接受到的参数，然后使用 reduce 方法把函数分别传入来执行
+    return args.reverse().reduce(function(t, f) {
+      return f(t)
+    }, val)
+  }
+}
+
+const comToUpperFunc = compose(toUpper, first, reverse);
+console.log(comToUpperFunc(['one', 'two', 'three']));
+```
 ### 结合律
 函数组合都必须要符合结合律
 ::: tip 什么叫结合律
@@ -168,21 +239,30 @@ console.log(findArrayNumber([' ', '12'])); // => ['12']
 > 写事例
 ``` javascript
 // 结合律
+const _ = require('lodash');
+
+const fn1 = _.flowRight(_.toUpper, _.first, _.reverse);
+const fn2 = _.flowRight(_.flowRight(_.toUpper, _.first), _.reverse);
+const fn3 = _.flowRight(_.toUpper, _.flowRight(_.first, _.reverse));
+
+console.log(fn1(['one', 'two', 'three'])); // => THREE
+console.log(fn2(['one', 'two', 'three'])); // => THREE
+console.log(fn3(['one', 'two', 'three'])); // => THREE
 ```
-
-### `lodash` 中的 `flow` 和 `flowRight` 方法
-
-### 手动实现一个函数组合的方法
-> 关键字是数组的方法 [reduce](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce)
-``` javascript
-// 手动实现函数组合方法
-```
-
 ### 如何进行调试
 函数组合是由多个子函数拼接在一起的，那就可以在需要进行调试子函数后，再插入一个调试函数，这个函数只是打印上一个函数生成的值，然后把他返回出去，供下一个函数使用。
 > 写事例
 ``` javascript
 // 函数组合调试
+const _ = require('lodash');
+
+function log(val) {
+  console.log(val);
+  return val;
+}
+
+const fn4 = _.flowRight(_.toUpper, _.first, log, _.reverse);
+fn4(['one', 'two', 'three']); // => [ 'three', 'two', 'one' ]
 ```
 
 ### 子函数包含多个参数该怎么处理
@@ -190,15 +270,48 @@ console.log(findArrayNumber([' ', '12'])); // => ['12']
 > 写事例
 ``` javascript
 // 函数组合的子函数有多个参数
+const _ = require('lodash');
+
+function log(tag, val) {
+  console.log(tag, val);
+  return val;
+}
+
+// 函数组合里面的函数只能是一元函数（只能接受一个参数），所以这里使用函数的柯里化，把多元函数变为一元函数
+const split = _.curry((sep, str) => _.split(str, sep));
+const join = _.curry((sep, arr) => _.join(arr, sep));
+const map = _.curry((fn, arr) => _.map(arr, fn));
+const newLog = _.curry((tag, val) => log(tag, val))
+
+
+// 这里的 join('-') 和 split(' ') 都是已经柯里化以后的函数，他已经接受一个参数，执行之后就返回了一个一元函数，这个一元函数刚好放在函数组合里面使用
+const fn1 = _.flowRight(join('-'), newLog('map 之后'), map(_.toLower), newLog('split 之后'), split(' '));
+
+console.log(fn1('HELLO WORLD'));
+/**
+ * split 之后 [ 'HELLO', 'WORLD' ]
+ * map 之后 [ 'hello', 'world' ]
+ * hello-world 
+ */
 ```
 
 #### 直接使用 `lodash` 中的 `lodash/fp` 模块
+- lodash 中的 fp 模块提供了对函数式编程比较友好的方法
+- 数据滞后，函数在前面
+
 > 写事例
 ``` javascript
 // lodash/fp 模块的使用
+const fp = require('lodash/fp');
+// lodash 中的 fp 模块都是已经柯里化后的函数，如果是有多个参数的化，都是函数优先，数据滞后的方式，可以直接使用。
+const fn2 = _.flowRight(fp.join('-'), fp.map(_.toLower), fp.split(' '));
+console.log(fn2('HELLO WORLD')); // => hello-world
 ```
-
 ### Point Free 模式
+- 不需要制定处理的数据
+- 只要合成运算的过程
+- 需要定义一些辅助的基本运算函数
+> 其实就是函数组合啊，写函数的时候不要关心传进来的是啥，只是拆分定义多个低粒度纯函数，然后把他们组装在一起返回一个新的大函数。
 
 ## Functor (函子) 
 ::: tip 
