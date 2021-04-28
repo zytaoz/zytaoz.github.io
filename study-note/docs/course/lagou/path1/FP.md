@@ -112,6 +112,34 @@ console.log(wxm); // => 给1班的王小明小朋友发糖果
 - 可以将常用的函数缓存下来，如上面的 `class1` 是可以重复使用的。
 - 提高函数粒度，在函数式编程中有利于函数进行组合。
 
+**把两个纯函数使用柯里化组装在一起使用**
+``` javascript
+// 使用多个纯函数加上函数柯里化来实现一个URL检查功能。
+const _ = require('lodash');
+
+// 首先定义一个基础的字符串校验函数，并且把函数柯里化
+const checkString = (reg, str) => str.match(reg);
+const curryCheckString = _.curry(checkString);
+
+// 定义两个方法函数，查找空格和查找数字
+const findSpace = curryCheckString(/\s+/g);
+const findNumber = curryCheckString(/\d+/g);
+
+// 查找数组里面的方法，并且柯里化
+const checkArrFunc = (func, array) => array.filter(func);
+const curryCheckArrFunc = _.curry(checkArrFunc);
+
+// 定义两个查找数组内指定参数的方法
+const findArraySpace = curryCheckArrFunc(findSpace);
+const findArrayNumber = curryCheckArrFunc(findNumber);
+
+console.log(findSpace('hello world')); // => [' ']
+console.log(findNumber('hello 123')); // => ['123']
+console.log(findArraySpace([' ', '12'])); // => [' ']
+console.log(findArrayNumber([' ', '12'])); // => ['12']
+```
+> 代码确实是自己写的，也能看懂里面的意思，但是很不熟练。有一些方法平时没有这么用过，这里会感觉有些别扭，比如数组的 `filter` 方法，平时都是面向过程的编程方式，是直接把函数写在里面的，没有使用过这种方式去多处引用，会感觉有点绕，需要仔细的捋一下才能明白含义。主要原因还是不熟悉函数式编程吧。
+
 ### 如何手动实现一个柯里化方法
 老师实现的思路很好，可以按照需求来完成具体功能。
 - 该函数会返回一个函数。

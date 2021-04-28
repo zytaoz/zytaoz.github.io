@@ -19,6 +19,8 @@
 
 ## Promise 高级使用
 
+### Promise.all
+
 ## Generator
 
 ## async 和 await
