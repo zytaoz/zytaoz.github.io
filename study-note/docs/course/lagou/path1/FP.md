@@ -469,7 +469,7 @@ console.log(r.value());
 ```
 
 ### task 函子
-使用 folktale 的 task 来
+使用 folktale 的 task 函子来处理异步任务
 ::: tip
 task 函子用来处理异步任务
 :::
