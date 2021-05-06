@@ -24,7 +24,10 @@
 - 关键字是使用数组来存储每一个 `then` 方法传进去的函数
 
 ## then 方法的链式调用
-
+- 链式调用的 `then` 方法会接受到一个新的 `promise`
+- 链式调用的 `then` 的值，是上一个 `then` 方法返回的值
+- 在 `then` 方法返回值的时候要判断一下，这个值是普通值还是一个 `promise` 的原型对象，如果是普通值就直接返回，如果是 `promise` 则需要获取到返回结果，再来判定是走 `resolve` 还是 `reject`
+- 链式调用返回的值，需要判断一下当前返回的值是不是他自己，`promise` 对象不能返回自己实例，会陷入循环调用。这里有点绕，需要多看一看
 
 ## 详情代码
 ``` javascript
@@ -77,17 +80,45 @@ class MyPromise {
 
   // then 是被调用的
   then (successFunc, failureFunc){
-    if (this.status === FULFILLED) {
-      // 成功，执行成功函数，并且将值传递出去
-      successFunc(this.successfulValue);
-    } else if (this.status === REJECTED) {
-      // 失败，执行失败函数，并且将值传递出去
-      failureFunc(this.failureValue);
-    } else {
-      // 等待，说明执行器内有异步函数，这里需要缓存一下两个函数，等待异步执行完毕
-      this.successCallback.push(successFunc);
-      this.failureCallback.push(failureFunc);
-    }
+    // 这里返回的是链式调用的promise，他也有 resolve 和 reject 方法
+    let callbackPromise = new MyPromise((resolve, reject) => {
+      if (this.status === FULFILLED) {
+        // 成功，执行成功函数，并且将值传递出去
+        setTimeout(() => {
+          let successVal = successFunc(this.successfulValue);
+          // 这里是为了链式调用把值传递给下一个 then 方法，在传递值的时候要判断一下当前值是普通值还是promise 对象
+          // 这里为什么使用定时器把返回 then 方法值的函数给包起来了
+          // 因为这个函数的第一个值是当前函数主体，在代码执行到当前行的时候这个函数还并没有生成好
+          // 所以就借用定时器的异步函数来先创建函数，然后再把函数返回出去
+          // 但是感觉这样写有点怪怪的
+          resolvePromiseFunc(callbackPromise, successVal, resolve, reject);
+        }, 0)
+      } else if (this.status === REJECTED) {
+        // 失败，执行失败函数，并且将值传递出去
+        failureFunc(this.failureValue);
+      } else {
+        // 等待，说明执行器内有异步函数，这里需要缓存一下两个函数，等待异步执行完毕
+        this.successCallback.push(successFunc);
+        this.failureCallback.push(failureFunc);
+      }
+    });
+    // 实现链式调用，那么 then 方法就要返回一个 promise
+    return callbackPromise;
+  }
+}
+
+// 判断 then 方法返回的值是哪种类型，以此来决定调用哪个函数
+function resolvePromiseFunc(promise, val, resolve, reject) {
+  // 在then 方法返回值的之后要判断一下返回的是不是他自己的实例，如果是的话就需要抛出错误
+  if (promise === val) {
+    return reject(new TypeError('循环调用的错误'));
+  }
+  if (val instanceof MyPromise) {
+    // 如果不是普通值就需要获取到 promise 的值，然后分别调用函数
+    val.then(value => resolve(value), err => reject(err));
+  } else {
+    // 如果是普通值的话就直接返回
+    resolve(val);
   }
 }
 
