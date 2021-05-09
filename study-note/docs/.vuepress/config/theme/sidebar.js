@@ -263,6 +263,27 @@ module.exports = {
               path: 'path1/promise.md'
             }
           ]
+        },
+        {
+          title: '模块二',
+          children: [
+            {
+              title: 'ECMAScript 新特征',
+              path: 'path1/ecmascript.md'
+            },
+            {
+              title: 'TypeScript',
+              path: 'path1/typescript.md'
+            },
+            {
+              title: 'JavaScript 性能优化【上】',
+              path: 'path1/js-optimize-1.md'
+            },
+            {
+              title: 'JavaScript 性能优化【下】',
+              path: 'path1/js-optimize-2.md'
+            }
+          ]
         }
       ]
     },
