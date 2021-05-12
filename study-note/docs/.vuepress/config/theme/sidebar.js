@@ -276,12 +276,8 @@ module.exports = {
               path: 'path1/typescript.md'
             },
             {
-              title: 'JavaScript 性能优化【上】',
-              path: 'path1/js-optimize-1.md'
-            },
-            {
-              title: 'JavaScript 性能优化【下】',
-              path: 'path1/js-optimize-2.md'
+              title: 'JavaScript 性能优化',
+              path: 'path1/js-optimize.md'
             }
           ]
         }
