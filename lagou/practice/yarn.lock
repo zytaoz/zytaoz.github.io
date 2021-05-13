@@ -2,32 +2,42 @@
 # yarn lockfile v1
 
 
-"dom-walk@^0.1.0":
-  "integrity" "sha512-6QvTW9mrGeIegrFXdtQi9pk7O/nSK6lSdXW2eqUspN5LWD7UTji2Fqw5V2YLjBpHEoU9Xl/eUWNpDeZvoyOv2w=="
-  "resolved" "https://registry.npmjs.org/dom-walk/-/dom-walk-0.1.2.tgz"
-  "version" "0.1.2"
+dom-walk@^0.1.0:
+  version "0.1.2"
+  resolved "https://registry.npmjs.org/dom-walk/-/dom-walk-0.1.2.tgz"
+  integrity sha512-6QvTW9mrGeIegrFXdtQi9pk7O/nSK6lSdXW2eqUspN5LWD7UTji2Fqw5V2YLjBpHEoU9Xl/eUWNpDeZvoyOv2w==
 
-"global@^4.4.0":
-  "integrity" "sha512-wv/LAoHdRE3BeTGz53FAamhGlPLhlssK45usmGFThIi4XqnBmjKQ16u+RNbP7WvigRZDxUsM0J3gcQ5yicaL0w=="
-  "resolved" "https://registry.npmjs.org/global/-/global-4.4.0.tgz"
-  "version" "4.4.0"
+flow-bin@^0.151.0:
+  version "0.151.0"
+  resolved "https://registry.yarnpkg.com/flow-bin/-/flow-bin-0.151.0.tgz#f1339f4c90b2c4242e5a9a2063e1e0efa0520084"
+  integrity sha512-V2UNOFUtCkWjDVws9htqBSHzHVBEW1xe6IHp4RYr7hVJPOri36cFWS2ssFM8Y0yFOz2EV79QdrhNf57wFSLEgg==
+
+global@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.npmjs.org/global/-/global-4.4.0.tgz"
+  integrity sha512-wv/LAoHdRE3BeTGz53FAamhGlPLhlssK45usmGFThIi4XqnBmjKQ16u+RNbP7WvigRZDxUsM0J3gcQ5yicaL0w==
   dependencies:
-    "min-document" "^2.19.0"
-    "process" "^0.11.10"
+    min-document "^2.19.0"
+    process "^0.11.10"
 
-"lodash@^4.17.21":
-  "integrity" "sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg=="
-  "resolved" "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
-  "version" "4.17.21"
+lodash@^4.17.21:
+  version "4.17.21"
+  resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
+  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
-"min-document@^2.19.0":
-  "integrity" "sha1-e9KC4/WELtKVu3SM3Z8f+iyCRoU="
-  "resolved" "https://registry.npmjs.org/min-document/-/min-document-2.19.0.tgz"
-  "version" "2.19.0"
+min-document@^2.19.0:
+  version "2.19.0"
+  resolved "https://registry.npmjs.org/min-document/-/min-document-2.19.0.tgz"
+  integrity sha1-e9KC4/WELtKVu3SM3Z8f+iyCRoU=
   dependencies:
-    "dom-walk" "^0.1.0"
+    dom-walk "^0.1.0"
 
-"process@^0.11.10":
-  "integrity" "sha1-czIwDoQBYb2j5podHZGn1LwW8YI="
-  "resolved" "https://registry.npmjs.org/process/-/process-0.11.10.tgz"
-  "version" "0.11.10"
+process@^0.11.10:
+  version "0.11.10"
+  resolved "https://registry.npmjs.org/process/-/process-0.11.10.tgz"
+  integrity sha1-czIwDoQBYb2j5podHZGn1LwW8YI=
+
+typescript@^4.2.4:
+  version "4.2.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.2.4.tgz#8610b59747de028fda898a8aef0e103f156d0961"
+  integrity sha512-V+evlYHZnQkaz8TRBuxTA92yZBPotr5H+WhQ7bD3hZUndx5tGOa1fuCgeSjxAzM1RiN5IzvadIXTVefuuwZCRg==
