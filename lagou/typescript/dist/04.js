@@ -11,5 +11,6 @@ function func1(person) {
 }
 func1({
     name: '桃子',
-    age: 30
+    age: 30,
+    class: 5
 });
