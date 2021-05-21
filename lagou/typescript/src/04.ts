@@ -21,9 +21,9 @@ function func1(person: Person) {
   console.log(person.age);
 }
 
-func1({
-  name: '桃子', 
-  age: 30,
-  class: 5
-})
+// func1({
+//   name: '桃子', 
+//   age: 30,
+//   class: 5
+// })
 

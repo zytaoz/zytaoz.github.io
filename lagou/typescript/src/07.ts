@@ -16,8 +16,8 @@ const arrAnyNumber = createArray<number>(3, 100);
 const arrAnyString = createArray<string>(3, 'text');
 
 
-import { camlCase } from 'lodash'
+// import { camlCase } from 'lodash'
 
-dcclare function camlCase(input: string): string;
+// dcclare function camlCase(input: string): string;
 
-const res = camlCase('test');
+// const res = camlCase('test');
