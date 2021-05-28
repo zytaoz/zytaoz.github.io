@@ -123,7 +123,7 @@ module.exports = [
           },
           {
             text: '前端工程化实战',
-            link: '/course/lagou/path2/cli.md'
+            link: '/course/lagou/path2/engineering.md'
           }
         ]
       }

@@ -248,7 +248,7 @@ module.exports = {
       title: 'JavaScript 深度剖析',
       children: [
         {
-          title: '模块一',
+          title: '函数式编程，异步，promise',
           children: [
             {
               title: '函数式编程',
@@ -265,7 +265,7 @@ module.exports = {
           ]
         },
         {
-          title: '模块二',
+          title: 'ES 新特性，TS，JS 性能优化',
           children: [
             {
               title: 'ECMAScript 新特征',
@@ -287,16 +287,21 @@ module.exports = {
       title: '前端工程化实战',
       children: [
         {
-          title: '工程化概述',
-          path: 'path2/engineering.md'
-        },
-        {
-          title: '脚手架工具',
-          path: 'path2/staging.md'
-        },
-        {
-          title: '自动化构建',
-          path: 'path2/automated-build.md'
+          title: '开发脚手架及封装自动化构建工作流',
+          children: [
+            {
+              title: '工程化概述',
+              path: 'path2/engineering.md'
+            },
+            {
+              title: '脚手架工具',
+              path: 'path2/staging.md'
+            },
+            {
+              title: '自动化构建',
+              path: 'path2/automated-build.md'
+            }
+          ]
         }
       ]
     }
