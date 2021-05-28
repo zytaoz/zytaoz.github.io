@@ -287,8 +287,16 @@ module.exports = {
       title: '前端工程化实战',
       children: [
         {
-          title: '脚手架',
-          path: 'path2/cli.md'
+          title: '工程化概述',
+          path: 'path2/engineering.md'
+        },
+        {
+          title: '脚手架工具',
+          path: 'path2/staging.md'
+        },
+        {
+          title: '自动化构建',
+          path: 'path2/automated-build.md'
         }
       ]
     }
