@@ -68,6 +68,15 @@ module.exports = {
           path: 'basis'
         }
       ]
+    },
+    {
+      title: 'Vue 3',
+      children: [
+        {
+          title: '组合 API',
+          path: 'vue3/compositionApi'
+        }
+      ]
     }
   ],
   '/web/advanced/react/': [
