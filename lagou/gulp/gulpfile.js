@@ -41,3 +41,44 @@ const func3 = done => {
 exports.chuan = series(func1, func2, func3);
 
 exports.bing = parallel(func1, func2, func3);
+
+
+exports.callback = done => {
+  console.log('done');
+  done();
+}
+
+exports.callbackError = done => {
+  console.log('done');
+  done(new Error('xxxxxx'));
+}
+
+exports.promise = () => {
+  console.log('promise');
+  return Promise.resolve();
+}
+
+exports.promiseError = () => {
+  console.log('promise');
+  return Promise.reject();
+}
+
+function timeout(time) {
+  return new Promise(resolve => {
+    setTimeout(resolve, time);
+  })
+}
+
+exports.async = async () => {
+  await timeout(1000);
+  console.log('xxxx');
+}
+
+const fs = require('fs');
+
+exports.steam = () => {
+  const readStream = fs.createReadStream('package.json');
+  const writeStream = fs.createWriteStream('test.txt');
+  readStream.pipe(writeStream);
+  return readStream;
+}
