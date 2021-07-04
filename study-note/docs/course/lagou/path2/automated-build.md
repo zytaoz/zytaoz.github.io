@@ -1,5 +1,5 @@
 # 自动化构建
-
+> 这堂课老师特别容易嘴瓢。
 ## Gulp
 在项目的根目录下要创建一个名为 `gulpfile.js` 的文件，改文件为 `gulp` 的入口文件。
 
@@ -216,6 +216,58 @@ bs.init({
 }
 ```
 
+### 使用 `useref` 来寻找不存在的路径
+其实也不能说是不存在的路径。如果在项目中使用到了第三方的依赖，按照前面的打包办法他可能会在 `html` 里面打包出来包含 `node_modules` 的路径，而这个路径是无法在正式的线上环境中使用的，所以要把这个目录提取出来。
+
+如下面代码显示的，打包的时候会在 `link` 或者 `script` 标签的前后生成类似的注释，而 `useref` 这个插件的功能就是把这个注释里面的路径提取到真实的路径中，且把文件也同步过去。
+``` html
+<!-- build:css assets/styles/vendor.css -->
+<link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.css">
+<!-- endbuild -->
+<!-- build:css assets/styles/main.css -->
+<link rel="stylesheet" href="assets/styles/main.css">
+<!-- endbuild -->
+```
+需要进行的操作如下：
+``` javascript
+const useref = () => {
+  return src('dist/*.html', { base: 'dist' })
+    // 查找文件的目录基于两个路径，一个是 dist，一个是项目根目录，根目录主要是为了找 node_modules，这里会把比较常用的路径放在前面
+    .pipe(plugins.useref({ searchPath: ['dist', '.'] }))
+    .pipe(dest('dist'))
+}
+```
+经过处理后打包出来的结果，可以看到 `href` 里面的路径就是上面注释里面的路径。
+``` html
+<link rel="stylesheet" href="assets/styles/vendor.css">
+<link rel="stylesheet" href="assets/styles/main.css">
+```
+#### 在使用 `useref` 生成文件的时候压缩一下代码
+使用 `gulp-if` 插件可以在文件流匹配断当前的文件是哪种类型，然后执行对应的 `plugins` 去压缩代码。
+``` javascript {7-13}
+// 把 HTML 文件中的 node_modules 目录改成实际可用的相对路径
+const useref = () => {
+  return src('dist/*.html', { base: 'dist' })
+    // 查找文件的目录基于两个路径，一个是 dist，一个是项目根目录，根目录主要是为了找 node_modules，这里会把比较常用的路径放在前面
+    .pipe(plugins.useref({ searchPath: ['dist', '.'] }))
+    // 在前面一个管道中生成文件的时候，这里就可以拿到生成的文件，这里可以把代码直接压缩一下
+    .pipe(plugins.if(/\.js$/, plugins.uglify()))
+    .pipe(plugins.if(/\.css$/, plugins.cleanCss()))
+    .pipe(plugins.if(/\.html$/, plugins.htmlmin({
+      collapseWhitespace: true, // 删除所有无用的回车和空格
+      minifyCSS: true, // 压缩所有的行内CSS元素
+      minifyJS: true, // 压缩所有的行内 js
+    })))
+    // 这里之所以要更换目录是因为在读的时候同时也写，会有逻辑冲突，所以就临时的换一个目录存储
+    .pipe(dest('dist'))
+}
+```
+#### 优化目录结构
+按照上面的写法其实整个项目的结构就已经错位了，新增了一个 `release` 目录，且 `dist` 目录并没有派上实际的用处。这里需要重新梳理一下目录结构。
+- 将 `dist` 目录定义为最终打包上线的目录，如果只是开发阶段的话就不要涉及到 `dist` 目录。
+- 定义一个 `temp` 临时目录用来存储开发阶段需要打包的文件 `html` `js` `css` 这些。
+
+
 ### 整体代码
 ``` javascript
 const { src, dest, parallel, series, watch } = require('gulp');
@@ -228,7 +280,7 @@ const plugins = loadPlugins();
 const bs = browserSync.create();
 
 const clean = () => {
-  return del(['dist']);
+  return del(['dist', 'temp']);
 }
 
 // 转换 css 文件
@@ -238,7 +290,7 @@ const style = () => {
     // outputStyle 就是 sass 编译后的样子，和正常的 sass 设置是一样的
     .pipe(plugins.sass({ outputStyle: 'compressed' }))
     // 写入流
-    .pipe(dest('dist'))
+    .pipe(dest('temp'))
     // 编译后重新刷新页面，返回的是一个 stream 流
     .pipe(bs.reload({ stream: true }))
 }
@@ -248,7 +300,7 @@ const script = () => {
   return src('src/assets/scripts/*.js', { base: 'src' })
     // 使用 babel 来转换 ecma6 之后的所有文件
     .pipe(plugins.babel({ presets: ['@babel/preset-env'] }))
-    .pipe(dest('dist'))
+    .pipe(dest('temp'))
     .pipe(bs.reload({ stream: true }))
 }
 
@@ -257,7 +309,7 @@ const page = () => {
   return src('src/**.html', { base: 'src' })
     // swig 是 html 模板引擎，这里可以接受一个 data 数据来写入 html 文件
     .pipe(plugins.swig({ data: plugins.swigData, defaults: { cache: false } }))
-    .pipe(dest('dist'))
+    .pipe(dest('temp'))
     .pipe(bs.reload({ stream: true }))
 }
 
@@ -317,14 +369,30 @@ const serve = () => {
        * 比如一个浏览器加载的一个文件在 dist 目录找不到，那么就会去 src 目录下找，以此类推
        * 这么做的目的因为在开发阶段没必要去打包图片和字体等文件，只需要打包一下必须要打包才能用的文件就行了
        */
-      baseDir: ['dist', 'src', 'public'],
-      // 路由的映射
+      baseDir: ['temp', 'src', 'public'],
+      // 路由映射
       routes: {
         // 在启动服务器的时候如果需要映射其他目录的话可以这里添加路由
         '/node_modules': 'node_modules'
       }
     }
   })
+}
+
+// 把 HTML 文件中的 node_modules 目录改成实际可用的相对路径
+const useref = () => {
+  return src('temp/*.html', { base: 'temp' })
+    // 查找文件的目录基于两个路径，一个是 temp，一个是项目根目录，根目录主要是为了找 node_modules，这里会把比较常用的路径放在前面
+    .pipe(plugins.useref({ searchPath: ['temp', '.'] }))
+    // 在前面一个管道中生成文件的时候，这里就可以拿到生成的文件，这里可以把代码直接压缩一下
+    .pipe(plugins.if(/\.js$/, plugins.uglify()))
+    .pipe(plugins.if(/\.css$/, plugins.cleanCss()))
+    .pipe(plugins.if(/\.html$/, plugins.htmlmin({
+      collapseWhitespace: true, // 删除所有无用的回车和空格
+      minifyCSS: true, // 压缩所有的行内CSS元素
+      minifyJS: true, // 压缩所有的行内 js
+    })))
+    .pipe(dest('dist'))
 }
 
 /**
@@ -336,17 +404,20 @@ const compile = parallel(style, script, page);
 /**
  * 这里可以使用 parallel 组合的命令
  * 因为这里是先清空后打包，所以要使用串联的命令 series，才能先清空后打包
- * 这里是打包项目目录
+ * 打包的过程
+ * 1、清空之前的目录
+ * 2、执行打包文件的并行任务
+ * 2-1、打包文件的并行任务中有一个串行任务，就是需要先将html,css,js文件先打包出来，然后使用useref对文件进行重新生成和压缩
  */
-const build = series(clean, parallel(compile, image, font, extra));
+const build = series(clean, parallel(series(compile, useref), image, font, extra));
 
 // 这里是开发模式，开发模式只需要打包一些不打包没办法使用的文件，和启动本地服务器就好了
 const dev = series(compile, serve);
 
+// 其实最终需要导出去的就两个任务，一个最终打包的 build 命令，一个 dev 开发命令
+// 这两个命令可以直接在 package.json 里面通过 script 的方式去定义命令
 module.exports = {
-  compile,
   build,
-  serve,
   dev
 }
 ```
