@@ -267,70 +267,82 @@ const useref = () => {
 - 将 `dist` 目录定义为最终打包上线的目录，如果只是开发阶段的话就不要涉及到 `dist` 目录。
 - 定义一个 `temp` 临时目录用来存储开发阶段需要打包的文件 `html` `js` `css` 这些。
 
+### 封装自动化工作流
+> 什么时候才能像老师封装的那样直接可以从 `npm` 上面下载。
+
+- 需要将项目加载进来 `yarn link`
+- 然后将配置文件里面那些被写死的路径都改成可以配置的
 
 ### 整体代码
 ``` javascript
-const { src, dest, parallel, series, watch } = require('gulp');
-const del = require('del');
-const browserSync = require('browser-sync');
+const { src, dest, parallel, series, watch } = require('gulp')
+const del = require('del')
+const browserSync = require('browser-sync')
 
-const loadPlugins = require('gulp-load-plugins');
+const loadPlugins = require('gulp-load-plugins')
 
-const plugins = loadPlugins();
-const bs = browserSync.create();
+const plugins = loadPlugins()
+const bs = browserSync.create()
+
+const cwd = process.cwd();
+let pageData = {};
+// 获取到项目目录下的配置文件
+try {
+  pageData = require(`${cwd}/page.config.js`);
+} catch (error) {}
 
 const clean = () => {
-  return del(['dist', 'temp']);
+  return del([pageData.build.dist, pageData.build.temp])
 }
 
 // 转换 css 文件
 const style = () => {
   // base 就是基准目录，他会以添加的这个目录为基准目录进行生成新的目录
-  return src('src/assets/styles/*.scss', { base: 'src' })
+  return src(pageData.build.paths.styles, { base: pageData.build.src, cwd: pageData.build.src })
     // outputStyle 就是 sass 编译后的样子，和正常的 sass 设置是一样的
     .pipe(plugins.sass({ outputStyle: 'compressed' }))
     // 写入流
-    .pipe(dest('temp'))
+    .pipe(dest(pageData.build.temp))
     // 编译后重新刷新页面，返回的是一个 stream 流
     .pipe(bs.reload({ stream: true }))
 }
 
 // 转换 js
 const script = () => {
-  return src('src/assets/scripts/*.js', { base: 'src' })
+  return src(pageData.build.paths.script, { base: pageData.build.src, cwd: pageData.build.src })
     // 使用 babel 来转换 ecma6 之后的所有文件
-    .pipe(plugins.babel({ presets: ['@babel/preset-env'] }))
-    .pipe(dest('temp'))
+    .pipe(plugins.babel({ presets: [require('@babel/preset-env')] }))
+    .pipe(dest(pageData.build.temp))
     .pipe(bs.reload({ stream: true }))
 }
 
 // 转换 html 文件
 const page = () => {
-  return src('src/**.html', { base: 'src' })
+  return src(pageData.build.paths.pages, { base: pageData.build.src, cwd: pageData.build.src })
     // swig 是 html 模板引擎，这里可以接受一个 data 数据来写入 html 文件
-    .pipe(plugins.swig({ data: plugins.swigData, defaults: { cache: false } }))
-    .pipe(dest('temp'))
+    .pipe(plugins.swig({ data: pageData.swigData, defaults: { cache: false } }))
+    .pipe(dest(pageData.build.temp))
     .pipe(bs.reload({ stream: true }))
 }
 
 // 转换图片
 const image = () => {
-  return src('src/assets/images/**', { base: 'src' })
+  return src(pageData.build.paths.images, { base: pageData.build.src, cwd: pageData.build.src })
     .pipe(plugins.imagemin())
-    .pipe(dest('dist'))
+    .pipe(dest(pageData.build.dist))
 }
 
 // 转换字体等其他文件
 const font = () => {
-  return src('src/assets/fonts/**', { base: 'src' })
+  return src(pageData.build.paths.fonts, { base: pageData.build.src, cwd: pageData.build.src })
     .pipe(plugins.imagemin())
-    .pipe(dest('dist'))
+    .pipe(dest(pageData.build.dist))
 }
 
 // 其他的文件
 const extra = () => {
-  return src('public/**', { base: 'public' })
-    .pipe(dest('dist'))
+  return src('**', { base: pageData.build.public, cwd: pageData.build.src })
+    .pipe(dest(pageData.build.dist))
 }
 
 // 本地服务
@@ -339,19 +351,20 @@ const serve = () => {
    * 在本地服务启动的时候，需要监听一下源代码目录下的文件是否有修改，如果有修改的话，就运行对应的任务进行打包
    * 打包完成后 browserSync 会监听到 dist 目录下的文件修改，然后就响应修改
    */
-  watch('src/assets/styles/*.scss', style);
-  watch('src/assets/scripts/*.js', script);
-  watch('src/**.html', page);
-  
+  watch(pageData.build.paths.styles, { cwd: pageData.build.src }, style)
+  watch(pageData.build.paths.script, { cwd: pageData.build.src }, script)
+  watch(pageData.build.paths.pages, { cwd: pageData.build.src }, page)
+
   /**
    * 对于文件的监听和上面有一些区别，上面的这些在监听到文件修改后会启动打包任务
    * 而对于普通的静态文件，在监听到修改后只需要重新刷新一下页面就好了
    */
   watch([
-    'src/assets/images/**',
-    'src/assets/fonts/**',
-    'public/**'
-  ], bs.reload);
+    pageData.build.paths.images,
+    pageData.build.paths.fonts
+  ], { cwd: pageData.build.src }, bs.reload)
+
+  watch('**', { cwd: pageData.build.src }, bs.reload)
 
   bs.init({
     // 是否显示右上角的通知
@@ -369,7 +382,7 @@ const serve = () => {
        * 比如一个浏览器加载的一个文件在 dist 目录找不到，那么就会去 src 目录下找，以此类推
        * 这么做的目的因为在开发阶段没必要去打包图片和字体等文件，只需要打包一下必须要打包才能用的文件就行了
        */
-      baseDir: ['temp', 'src', 'public'],
+      baseDir: [pageData.build.temp, pageData.build.src, pageData.build.public],
       // 路由映射
       routes: {
         // 在启动服务器的时候如果需要映射其他目录的话可以这里添加路由
@@ -381,25 +394,25 @@ const serve = () => {
 
 // 把 HTML 文件中的 node_modules 目录改成实际可用的相对路径
 const useref = () => {
-  return src('temp/*.html', { base: 'temp' })
+  return src(pageData.build.paths.pages, { base: pageData.build.temp, cwd: pageData.build.temp })
     // 查找文件的目录基于两个路径，一个是 temp，一个是项目根目录，根目录主要是为了找 node_modules，这里会把比较常用的路径放在前面
-    .pipe(plugins.useref({ searchPath: ['temp', '.'] }))
+    .pipe(plugins.useref({ searchPath: [pageData.build.temp, '.'] }))
     // 在前面一个管道中生成文件的时候，这里就可以拿到生成的文件，这里可以把代码直接压缩一下
     .pipe(plugins.if(/\.js$/, plugins.uglify()))
     .pipe(plugins.if(/\.css$/, plugins.cleanCss()))
     .pipe(plugins.if(/\.html$/, plugins.htmlmin({
       collapseWhitespace: true, // 删除所有无用的回车和空格
       minifyCSS: true, // 压缩所有的行内CSS元素
-      minifyJS: true, // 压缩所有的行内 js
+      minifyJS: true // 压缩所有的行内 js
     })))
-    .pipe(dest('dist'))
+    .pipe(dest(pageData.build.dist))
 }
 
 /**
  * 使用 parallel 进行组合任务
  * 这里是不打包没有办法使用的文件，如 css, js, html
  */
-const compile = parallel(style, script, page);
+const compile = parallel(style, script, page)
 
 /**
  * 这里可以使用 parallel 组合的命令
@@ -409,10 +422,10 @@ const compile = parallel(style, script, page);
  * 2、执行打包文件的并行任务
  * 2-1、打包文件的并行任务中有一个串行任务，就是需要先将html,css,js文件先打包出来，然后使用useref对文件进行重新生成和压缩
  */
-const build = series(clean, parallel(series(compile, useref), image, font, extra));
+const build = series(clean, parallel(series(compile, useref), image, font, extra))
 
 // 这里是开发模式，开发模式只需要打包一些不打包没办法使用的文件，和启动本地服务器就好了
-const dev = series(compile, serve);
+const dev = series(compile, serve)
 
 // 其实最终需要导出去的就两个任务，一个最终打包的 build 命令，一个 dev 开发命令
 // 这两个命令可以直接在 package.json 里面通过 script 的方式去定义命令
