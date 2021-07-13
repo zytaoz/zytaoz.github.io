@@ -71,3 +71,73 @@ require(['module1'], function('module1') {
 这里没啥好说的了，因为就是一直都在用的。
 - 浏览器环境就是 `ES Modules` 规范
 - `nodejs` 环境就是 `commonjs` 规范
+
+### `ES Modules`
+基本上现代浏览器都原生支持 `ES Modules` 规范了。
+
+**特性**
+- 他会自动启用严格模式，哪怕没有定义 `use strict` 也会自动启用。
+- 每个模块都有自己独立的作用域。
+- `ES Modules` 是通过 `CORS` 去请求外链的，所以要求服务端设置不跨域，否则会出现跨域报错。
+- `ES Modules` 引入的 `script` 标签会延迟执行。
+
+基础的导入导出语法没有什么好记的，都是一些经常用的基础语法，但是有一点之前不了解的地方。
+
+#### 大括号语法
+下面这里的导入 `b` 并不是导入一个对象，导出 `a` 也不是导出一个对象，这里的大括号是标准的语法，并不是 `es6` 的解构语法。
+``` javascript
+import { b } from './modules-b.js';
+
+const a = 100;
+
+export {
+  a
+}
+```
+
+#### default
+之前一直都理解错误，认为 `export` 的时候要么导出大括号，要么导出 `default`，其实两者是可以共存的，`default` 只是提供一个默认的选项而已。
+``` javascript
+// 模块 a
+const a = 100;
+const b = 200;
+
+export default a;
+
+export {
+  b
+};
+```
+引用
+``` javascript
+// 模块 b
+import a, { b } from './modules-a.js';
+```
+
+#### 中继转发
+在做大型项目的时候，一个目录下可能会有很多个模块文件同时存在，这时候可以可以使用一个 `index.js` 作为中继文件转发出当前目录下的所有文件，那样在引用这个目录下的模块的时候就不用去一个个找文件了。
+
+#### 直接导出
+还可以直接把导出的文件导出出去
+``` javascript
+export { moduelsA } from './modules-a.js';
+```
+
+#### 执行，但是不引用
+``` javascript
+import {} from './modules-a.js';
+
+// 或者 
+
+import './modules-a.js';
+```
+
+#### 在文件中间导入模块
+通常情况下，`import` 只能在文件的最顶部使用，但是也有个别的情况需要在代码内部进行引入，如需要执行判断后再使用的情况，这时候就可以使用 `import` 函数去引用模块。引入的模块他会返回一个 `Promise`，所以可以使用 `.then` 方法去接受模块加载回来的结果。
+``` javascript
+if (true) {
+  import('./modules-a.js').then(modulesa => {
+    console.log(modulesa);
+  })
+}
+```
