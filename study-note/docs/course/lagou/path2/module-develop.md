@@ -4,7 +4,7 @@
 其实就我来说入行并不算晚，15年底，应该算是刚好踏上了移动互联网爆发的时间点（不然也找不到工作吧），但是后续一直在这家公司确实耽误了很多（技能方面）。就拿这个模块化开发的概念来说，其实在很早很早之前就有这方面的概念了，但是学习能力比较差，因为学历低（中专），且是电工转行，接触不到除公司之外其他任何的技术人员，自己的性格又不喜欢和陌生人聊天。导致自己进入了一个封闭的学习状态，封装了很多现在看起来基本就是垃圾的模块和功能库（对比一下老师讲的内容其实一直都在第一阶段来回徘徊）。现在回想起来，也不知道应该庆幸（发现了问题）还是应该可悲（用了太长时间才发现）。
 :::
 
-## 模块化开发演化过程
+## 演化过程
 > 模块化开发其实就是一个思想，他的实现方式是多种多样的。且从一开始到现在是有一个循序渐进的演化过程的。
 
 ### 1. 文件划分的方式
@@ -28,7 +28,7 @@
 
 > 我自己对模块化的探索也就仅仅到此为止了。
 
-## 模块化开发崭露头角
+## 崭露头角
 ### CommonJS
 `nodejs` 的 `commonjs` 规范才算是能真正称得上模块化开发的一种开发方式。
 
@@ -67,7 +67,7 @@ require(['module1'], function('module1') {
 ```
 `AMD` 可以实现模块化标准，但是使用起来还是麻烦的，因为除了业务代码之外，还要去写一堆模块化标准的代码。
 
-## 模块化标准的最佳实践
+## 的最佳实践
 这里没啥好说的了，因为就是一直都在用的。
 - 浏览器环境就是 `ES Modules` 规范
 - `nodejs` 环境就是 `commonjs` 规范
@@ -141,3 +141,56 @@ if (true) {
   })
 }
 ```
+
+## 低版本兼容性处理
+
+### IE 
+`ie` 不支持 `ES Module` 语法，这里可以使用第三方的 `polyfill`。
+
+- [browser-es-module-loader](https://github.com/ModuleLoader/browser-es-module-loader)
+- [promise-polyfill](https://github.com/taylorhakes/promise-polyfill)
+
+#### nomodule
+``` html
+<script nomodule>
+  alert('这里面的代码只会在不支持 ES module 的浏览器里面执行');
+</script>
+```
+
+## 在 nodejs 中使用 ES Module 语法
+`nodejs` 中已经可以使用 `ES Module` 语法了，只是目前还是处于试验状态，他使用起来和在浏览器环境中有一些小区别。
+- 因为目前是试验属性，所以后缀要改成 `.mjs`。
+- 可以在代码中间的位置使用 `import` 语法引入模块，浏览器中只能使用 `import()` 函数。
+- 在使用`nodejs`的第三方模块的时候，除非第三方模块特别声明了，否则是不能使用 `{}` 提取的方式去提取模块中的内置成员，因为 `nodejs` 的第三方组件库一般都是直接导出一个对象。但是 `nodejs` 的官方模块做了这方面的处理，可以使用 `{}` 的方式提取内置方法。
+
+``` javascript {6,7}
+import _ from 'lodash';
+const a = {};
+const b = _.cloneDeep(a);
+
+// 这里会报错，无法提取内置模块
+import { cloneDeep } from 'lodash';
+const b = cloneDeep(a);
+
+import fs from 'fs';
+fs.writeFileSync('test.txt', 'test text');
+
+// 可以正常执行，因为内置模块都做了兼容处理
+import { writeFileSync } from 'fs';
+writeFileSync('test.txt', 'test text');
+```
+
+### commonjs 和 es module 的交互
+- ES Module 中可以导入 CommonJS 模块
+- CommonJS 中不能导入 ES Module 模块
+- 区别于 ES Module，CommonJS 只会导出一个默认的成员
+- ES Module 中的 import 语法只是固定语法，并不能解构导出的对象！
+- ES Module 中的 import 语法只是固定语法，并不能解构导出的对象！！
+- ES Module 中的 import 语法只是固定语法，并不能解构导出的对象！！！
+- ES Module 中不能使用 CommonJS 中那些内置的方法。
+
+### 新版 nodejs 中对 ES Module 的进一步支持
+在 12.X 以后的 `nodejs` 版本中，可以在 `package.json` 里面定义一个 `type` 字段为 `module` 来声明当前项目下的文件都是使用 `ES Module` 规范进行开发的，这样就可以不用在把后缀改成 `.mjs` 了。但是这样就不能使用 `Commonjs` 规范，如果要使用的话，就需要把对应的文件后缀改成 `.cjs`。
+
+### bebal
+可以直接使用 `bebal` 在 `nodejs` 中使用 `ES Module` 语法。
