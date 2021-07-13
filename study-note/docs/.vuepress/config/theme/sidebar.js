@@ -311,6 +311,31 @@ module.exports = {
               path: 'path2/automated-build.md'
             }
           ]
+        },
+        {
+          title: '模块化开发与规范化标准',
+          children: [
+            {
+              title: '模块化开发',
+              path: 'path2/module-develop.md'
+            },
+            {
+              title: 'Webpack 打包',
+              path: 'path2/webpack-build.md'
+            },
+            {
+              title: '其他打包工具',
+              path: 'path2/other-build-tools.md'
+            },
+            {
+              title: '规范化标准',
+              path: 'path2/eslint.md'
+            },
+            {
+              title: 'Webpack 源码',
+              path: 'path2/webpack-soundcode.md'
+            }
+          ]
         }
       ]
     }
