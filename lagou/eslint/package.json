@@ -3,7 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "script": {
+    "eslint": "eslint index.js"
+  },
   "devDependencies": {
-    "eslint": "^7.31.0"
+    "eslint": "^7.31.0",
+    "husky": "^7.0.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn eslint"
+    }
   }
 }

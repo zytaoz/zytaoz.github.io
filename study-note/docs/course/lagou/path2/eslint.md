@@ -84,3 +84,60 @@ new StyleLintPlugin({
 
 ## 使用 git 钩子来添加校验时机
 在 `git` 执行的时候会在指定的时机执行指定的钩子，所以就可以在 `git` 钩子执行的时候执行以下代码校验。
+
+::: tip 知识点
+`git` 的钩子文件都在 `.git/hooks/` 目录下，其中 `pre-commit.sample` 就是 `commit` 的钩子，这时候只要在当前目录下新建一个 `pre-commit`，里面写的 `shell` 脚本就能在 `commit` 执行的时候触发了。
+:::
+
+最好还是不要使用直接修改 `shell` 脚本的方式去做，而是使用一个叫 `husky` 的模块。
+``` sh
+yarn add husky --dev
+```
+
+安装完成后就可以直接在 `package.json` 中定义了，需要注意的是，这里写的调试命令一定要在 `script` 内已经定义好了。
+``` json
+{
+  "scripts": {
+    "serve": "webpack serve --config webpack.dev.js",
+    "build": "webpack --config ./webpack.prod.js",
+    "lint": "eslint --ext js,vue ./src --fix && stylelint src/*.{html,vue,css,less}",
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint"
+    }
+  }
+}
+```
+
+上面这种方式只是单纯的执行了一下 `eslint`，如果有多个命令要执行的话还可以使用 `lint-staged` 插件。
+``` sh
+yarn add lint-staged --dev
+```
+
+使用方式也是在 `package.json` 中定义。
+执行过程是
+- `git commit` 触发 `hooks`
+- `hooks` 执行 `yarn precommit`
+- `yarn precommit` 再分别触发 `eslint` 的校验和重新 `git add` 命令
+``` json
+{
+  "scripts": {
+    "serve": "webpack serve --config webpack.dev.js",
+    "build": "webpack --config ./webpack.prod.js",
+    "lint": "eslint --ext js,vue ./src --fix && stylelint src/*.{html,vue,css,less}",
+    "precommit": "lint-staged"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn precommit"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "yarn lint",
+      "git add"
+    ]
+  }
+}
+```
