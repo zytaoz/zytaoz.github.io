@@ -1,4 +1,8 @@
 # 其他打包工具
+
+::: warning 关于
+目前看下来这块东西还是需要继续看的，不能只是简单的了解。
+:::
 ## Rollup
 [Rollup](https://www.rollupjs.com/)<br />
 相对于 `webpack`，`rollup` 更适合去开发库，因为他的生态没有 `webpack` 好，插件什么的没有 `webpack` 多。

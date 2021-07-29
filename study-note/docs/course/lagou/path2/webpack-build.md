@@ -152,6 +152,36 @@ module.exports = {
 - url-loader 
   - `url-loader`，会把文件编程成 `data-url` 模式，而 `url-loader` 是一段编码，他可以用代码的形式来表达任何形式的文件。
 
+## webpack5 中的资源模块管理
+[webpack5 资源模块](https://webpack.docschina.org/guides/asset-modules/)
+区别于 `webpack4` ，在 5 里面资源加载可以不使用 `url-loader` `file-loader` `raw-loader` 这种资源加载器了，在 5 中官方提供了 `asset module` 资源模块。
+
+他可以通过添加 4 种新的模块类型，来替换所有这些 `loader`：
+- `asset/resource` 复制一个单独的文件并且导出链接，代替之前 `file-loader`。
+- `asset/inline` 生成一个资源的 dataURL。之前通过 `url-loader` 去实现的。
+- `asset/source` 导出资源的源代码，之前是通过 `raw-loader` 实现的。
+- `asset` 在生成资源的 `dataURL` 和导出文件之间自动选择，之前是使用 `url-loader` 实现的。可以通过 `Rule.parser.dataUrlCondition.maxSize` 来配置生成 `dataURL` 资源的大小，默认是 `8kb`。
+
+``` javascript
+module.exports = {
+  module: {
+    rules: [
+      {
+        // 使用 asset 自动选择导出资源的方式
+        test: /\.(png|jpg|gif|txt|pdf|mp4|mp3)$/,
+        type: 'asset',
+        parser: {
+          dataUrlCondition: {
+            maxSize: 20 * 1024
+          }
+        }
+      }
+    ]
+  }
+}
+```
+
+
 ## 开发一个 loader
 `loader` 其实挺简单的，他就是一个输入，获取到输入的值之后做处理然后再把他输出出去，而输出出去的则必须是一段 `js` 代码（好像webpack 5 没有这个问题了，我尝试输出纯字符串也没有问题）。而他整个的输出过程就是一个管道 `use`，而这个管道就是前面一个 `loader` 执行完了就把文件交给下一个 `loader` 去执行。
 
@@ -199,6 +229,12 @@ module.exports = {
   ]
 }
 ```
+
+::: warning html-webpack-plugin 和 html-loader
+如果在 `webpack` 配置项中已经使用了 `html-webpack-plugin` 的话，就不要再启用 `html-loader` 了，否则的话 `html-loader` 会和 `html-webpack-plugin` 在解析 `html` 的时候会产生冲突。且 `html-loader` 没有解析 `ejs` 模板语法的能力，如果 `html` 模板文件中有 `ejs` 语法的话，那就会出现无法解析的情况。
+
+如果一定要同时使用的话（模板内有 `ejs` 语法），那就需要将 `html-webpack-plugin` 的模板文件设置为 `ejs` 格式，那么 `html-webpack-plugin` 会去先解析 `ejs` 模板，解析成功后生成 `html`，再交由 `html-loader` 处理。
+:::
 
 ## 开发一个 plugin
 `plugin` 就是一个函数，他是通过往 `webpack` 的生命周期中挂载对应的函数来实现对应功能的。 
@@ -395,15 +431,18 @@ module.exports = {
 - 标记无用代码，无用代码不予导出。
 - 在压缩代码的时候将没有导出或者没有使用到的变量删除。
 
-### concatenateModules
+### optimization
 将模块合并到一个函数内打包，可以优化代码体积。
-
+- [optimization](https://webpack.docschina.org/configuration/optimization)
+- [optimization.minimize](https://webpack.docschina.org/configuration/optimization/#optimizationminimize)
+- [optimization.usedExports](https://webpack.docschina.org/configuration/optimization/#optimizationusedexports)
 ``` javascript
+
 module.exports = {
   optimization: {
-    usedExports: true, // 不导出没有用到的代码或者模块
-    minimize: true, // 压缩代码
-    concatenateModules: true, // 合并代码
+    usedExports: true, // 不导出没有用到的代码或者模块，默认为 true
+    minimize: true, // 压缩代码，默认为 true 
+    concatenateModules: true, // 合并代码，生产环境默认打开
   }
 }
 ```
@@ -452,7 +491,7 @@ module.exports = {
 }
 ```
 
-### 代码分包和代码
+### 代码分包
 
 #### 多入口打包
 就是按照页面把 `webpack` 的入口分为多个。[之前的配置文件](https://github.com/lambortao/create-h5/blob/master/config/getMapConfig.js#L31)
