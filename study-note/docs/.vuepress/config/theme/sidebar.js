@@ -338,6 +338,73 @@ module.exports = {
           ]
         }
       ]
+    },
+    {
+      title: 'Vue 源码与进阶',
+      children: [
+        {
+          title: 'Router、响应式、虚拟DOM和Diff算法',
+          children: [
+            {
+              title: 'Vue Router 源码及实现',
+              path: 'path3/module1/router.md'
+            },
+            {
+              title: '响应式原理',
+              path: 'path3/module1/response-principle.md'
+            },
+            {
+              title: '虚拟 DOM 和 Diff 算法',
+              path: 'path3/module1/virtual-dom.md'
+            }
+          ]
+        },
+        {
+          title: 'Vue 源码分析',
+          children: [
+            {
+              title: 'Vue 源码分析',
+              path: 'path3/module2/source-code.md'
+            }
+          ]
+        },
+        {
+          title: 'Vuex 和 SSR',
+          children: [
+            {
+              title: 'Vuex',
+              path: 'path3/module3/vuex.md'
+            }
+          ]
+        },
+        {
+          title: '搭建自己的SSR/SSG/组件库',
+          children: [
+            {
+              title: '搭建自己的SSR',
+              path: 'path3/module4/my-ssr.md'
+            }
+          ]
+        },
+        {
+          title: 'Vue 3',
+          children: [
+            {
+              title: 'Composition API',
+              path: 'path3/module5/compostion-api.md'
+            }
+          ]
+        },
+        {
+          title: '实战项目',
+          children: [
+            {
+              title: '实战项目',
+              path: 'path3/module6/true-project.md'
+            }
+          ]
+        }
+      ]
     }
   ]
 }

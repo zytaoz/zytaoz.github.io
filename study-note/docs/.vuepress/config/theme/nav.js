@@ -124,6 +124,10 @@ module.exports = [
           {
             text: '前端工程化实战',
             link: '/course/lagou/path2/engineering.md'
+          },
+          {
+            text: 'Vue 源码与进阶',
+            link: '/course/lagou/path3/module1/router.md'
           }
         ]
       }
