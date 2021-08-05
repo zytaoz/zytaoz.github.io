@@ -14,7 +14,14 @@ module.exports = {
       serviceWorker: true,
       updatePopup: true
     }],
-    codePen
+    codePen,
+    [
+      "md-enhance",
+      {
+        mermaid: true,
+        mark: true
+      },
+    ]
   ],
   markdown: {
     extendMarkdown: md => {
