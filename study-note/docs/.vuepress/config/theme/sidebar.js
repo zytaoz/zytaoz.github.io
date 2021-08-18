@@ -343,6 +343,10 @@ module.exports = {
       title: 'Vue 源码与进阶',
       children: [
         {
+          title: 'Vue 基础概念',
+          path: 'path3/basis.md'
+        },
+        {
           title: 'Router、响应式、虚拟DOM和Diff算法',
           children: [
             {

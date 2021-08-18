@@ -26,16 +26,6 @@ Vue 可以说是拥有整个前端生态中最友好的官方中文文档，所�
 - 但是因为我们的网站是一个单页面应用，浏览器访问的这个地址其实是不存在的，服务端上的页面链接只有 `index.html` 是可以被真实访问到的。
 - 所以，不管是 `nodejs` 还是 `nginx` 他们做的事情都是一样的。即：不管浏览器请求的是哪一个页面链接，始终只返回 `index.html` 入口文件的链接。
 
-## 实现一个 Vue Router
-```class
-class Square~Shape~{
-    int id
-    List~int~ position
-    setPoints(List~int~ points)
-    getPoints() List~int~
-}
 
-Square : -List~string~ messages
-Square : +setMessages(List~string~ messages)
-Square : +getMessages() List~string~
-```
+
+## 实现一个 Vue Router
