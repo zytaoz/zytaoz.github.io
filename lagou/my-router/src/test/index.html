@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    class fun1 {
+      constructor(name) {
+        this.name = name;
+      }
+      init() {
+        console.log(this.name);
+      }
+    }
+
+    const wang = new fun1('wang');
+    const li = new fun1('li');
+    // 显式原型
+    fun1.prototype.init1 = function() {
+      console.log(`我的名字是 ${this.name}`);
+    }
+    
+    // 隐式原型
+    wang.__proto__.init3 = function() {
+      console.log(`我的名字是1 ${this.name}`);
+    }
+
+    wang.init3()
+    li.init3()
+  </script>
+</body>
+</html>

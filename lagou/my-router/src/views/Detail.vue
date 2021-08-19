@@ -1,15 +1,11 @@
 <template>
   <div>
-    这里是首页
+    sdsdfsdfdf
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Index'
+  name: 'Detail'
 }
 </script>
-
-<style>
-
-</style>

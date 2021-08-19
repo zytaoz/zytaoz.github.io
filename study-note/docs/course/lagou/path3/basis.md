@@ -16,3 +16,10 @@ Vue.use(VueRouter);
 // 注册 Vuex 插件
 Vue.use(store);
 ```
+
+## Vue 的构建版本
+#### 运行时版本
+运行时的版本不支持对 `template` 模板的编译，需要在打包的时候提前编译好。
+
+#### 完整版
+包含运行时的版本和 `template` 编译器，体积稍大，可以在程序运行的时候把 `template` 模板转化为 `render` 函数。
