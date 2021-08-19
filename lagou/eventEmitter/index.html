@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    class eventBus {
+      constructor () {
+        this.events = {};
+      }
+      // 注册事件
+      $on (name, func) {
+        this.events[name] =  this.events[name] ? this.events[name] : [];
+        this.events[name].push(func);
+      }
+      // 触发事件
+      $emit (name) {
+        if (this.events[name]) {
+          this.events[name].forEach(element => {
+            element();
+          });
+        }
+      }
+    }
+
+    const newBus = new eventBus();
+    newBus.$on('func1', function() {
+      console.log('func1');
+    })
+    newBus.$on('func1', function() {
+      console.log('func11');
+    })
+    newBus.$on('func2', function() {
+      console.log('func2');
+    })
+    newBus.$emit('func1');
+    newBus.$emit('func2');
+  </script>
+</body>
+</html>
