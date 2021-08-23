@@ -116,3 +116,13 @@ dep.notify(); // => xxxx
 ```
 
 ## Vue 响应式原理模拟
+
+首先实现了 vue 最基础的功能。
+- 新建了一个 vue 的类。
+- 类里面有三个属性。
+  - options 选项
+  - data vue 中的数据
+  - el dom 元素
+- 实现了一个数据代理的方法，这个方法主要的功能就是遍历 data，然后把 data 的数据注入到 vue 实例上面去，然后注册 get 和 set 方法。
+
+然后创建一个 observer.js 文件，把 this.$data 的数据也转换成响应式的，如果 data 也是一个对象的话，就需要递归。
