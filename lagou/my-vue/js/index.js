@@ -34,7 +34,7 @@ class Vue {
         set (val) {
           // set 方法先判断的新旧数据是否一致，然后再进行赋值
           if (val === data[item]) return;
-          data[key] = val;
+          data[item] = val;
         }
       })
     })
