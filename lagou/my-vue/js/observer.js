@@ -19,6 +19,7 @@ class Observer {
 
   defineReactive (data, key, val) {
     const _this = this;
+    // 把 key 也放到 this.walk 内调用一下，以防止 key 本身也是一个对象
     this.walk(key);
     Object.defineProperty(data, key, {
       enumerable: true,
@@ -33,6 +34,7 @@ class Observer {
       set (newVal) {
         if (val === newVal) return;
         val = newVal;
+        // 如果给一个值设置为对象的话，那么他这个设置的对象也需要是响应式的
         _this.walk(newVal);
         // 发送通知
       }

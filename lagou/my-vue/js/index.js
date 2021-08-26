@@ -16,6 +16,9 @@ class Vue {
 
     // 调用 observer 对象
     new Observer(this.$data);
+
+    // 调用 compiler 方法，编译模板
+    new Compiler(this);
   }
 
   // 代理数据的函数

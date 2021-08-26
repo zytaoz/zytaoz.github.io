@@ -125,4 +125,60 @@ dep.notify(); // => xxxx
   - el dom 元素
 - 实现了一个数据代理的方法，这个方法主要的功能就是遍历 data，然后把 data 的数据注入到 vue 实例上面去，然后注册 get 和 set 方法。
 
-然后创建一个 observer.js 文件，把 this.$data 的数据也转换成响应式的，如果 data 也是一个对象的话，就需要递归。
+#### observer.js 方法
+主要功能
+- 把 data 选项中的属性转换成响应式属性，如果 data 的属性也是对象的话，那还需要把这个属性也转换成响应式的
+- 数据发生变化后发送通知
+
+**类结构**
+``` javascript
+class Observer {
+  // 构造函数接受 data 数据
+  constructor (data) {}
+
+  // walk 方法是遍历 data 中所有的属性
+  walk (data) {}
+
+  // 使用 defineProperty 把数据变成响应式数据，也就是说 walk 方法在遍历的时候会调用该方法
+  defineReactive (data, key, val) {}
+}
+```
+
+#### compiler 方法
+这个方法的主要功能是
+- 编译模板，解析指令和差值表达式
+- 页面首次渲染
+- 数据变化后重新视图的重新渲染
+
+**类结构**
+``` javascript
+class Compiler {
+  /**
+  * el 是实际要操作的 dom 对象，这里传过来的可能是字符串，要转换为 dom 对象
+  * vm 是 vue 实例，下面的方法都要用到这个实例，
+  */
+  constructor (el, vm) {}
+
+  /**
+  * 判断节点，看当前节点是文本节点还是元素节点
+  * 如果是文本节点就去调用方法解析为插值表达式
+  * 如果是元素节点的话就去调用方法解析为指令
+  */
+  compile (el) {}
+
+  // 解析元素节点中的指令
+  compileElement (node) {}
+
+  // 解析文本节点中的插值表达式
+  compileText (node) {}
+
+  // 判断传入的值是否是指令
+  isDirective (attrName) {}
+
+  // 判断传入的 node 是不是文本节点
+  isTextNode (node) {}
+
+  // 判断传入的 node 是不是元素节点
+  isElementNode (node) {}
+}
+```
