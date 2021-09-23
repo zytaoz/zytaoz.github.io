@@ -13,6 +13,8 @@
     <h3>{{ count }}</h3>
     <h1>v-text</h1>
     <div v-text="msg"></div>
+    <div v-html="html"></div>
+    <button v-on:click="testFunc">点击事件</button>
     <h1>v-model</h1>
     <input type="text" v-model="msg">
     <input type="text" v-model="count">
@@ -26,8 +28,14 @@
       el: '#app',
       data: {
         msg: 'hello vue',
-        count: 20
-      }
+        count: 20,
+        html: '<b>这是一个粗体字</b>'
+      },
+      methods: {
+        testFunc () {
+          alert('xxxx');
+        }
+      },
     })
     vm.msg = { test: 'test' }
   </script>
