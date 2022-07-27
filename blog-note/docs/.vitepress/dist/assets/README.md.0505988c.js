@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as a}from"./app.7e3286e5.js";const i=JSON.parse('{"title":"","description":"","frontmatter":{"home":true,"heroImage":"/note.png","lang":"zh-CN"},"headers":[],"relativePath":"README.md"}'),r={name:"README.md"};function o(n,s,c,p,_,m){return a(),t("div")}var f=e(r,[["render",o]]);export{i as __pageData,f as default};

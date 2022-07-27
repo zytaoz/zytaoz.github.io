@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as a}from"./app.7e3286e5.js";const m=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"course/lagou/path3/module3/ssr.md"}'),r={name:"course/lagou/path3/module3/ssr.md"};function s(o,c,n,p,d,_){return a(),t("div")}var u=e(r,[["render",s]]);export{m as __pageData,u as default};
