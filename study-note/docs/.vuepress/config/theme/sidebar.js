@@ -251,7 +251,7 @@ module.exports = {
       path: 'testhub'
     }
   ],
-  '/other/': ['偏激', 'upset'],
+  // '/other/': ['偏激', 'upset'],
   '/course/lagou/': [
     {
       title: 'JavaScript 深度剖析',
@@ -407,6 +407,59 @@ module.exports = {
               path: 'path3/module6/true-project.md'
             }
           ]
+        }
+      ]
+    }
+  ],
+  '/course/embedded/': [
+    {
+      title: 'Linux C语言编程',
+      children: [
+        {
+          title: '计算机基础与 C 语言',
+          path: '/course/embedded/phase1/c/',
+          children: [
+            {
+              title: '计算机基础',
+              path: 'phase1/c/computer-basics.md'
+            },
+            {
+              title: 'Linux 基础命令',
+              path: 'phase1/c/linux-basic.md'
+            },
+            {
+              title: 'vim 编辑器和 gcc 编辑器',
+              path: 'phase1/c/vim-gcc.md'
+            },
+            {
+              title: '数据进制转换',
+              path: 'phase1/c/data-base-conversion.md'
+            },
+            {
+              title: '数据的存储',
+              path: 'phase1/c/data-storage.md'
+            },
+            {
+              title: 'C 语言中的数据类型',
+              path: 'phase1/c/data-type.md'
+            },
+            {
+              title: 'C 语言中的运算符',
+              path: 'phase1/c/operator.md'
+            }
+          ]
+        },
+        {
+          title: 'C语言进阶-编程思想',
+          path: 'phase1/c-thought.md'
+        },
+        {
+          title: 'C语言高级进阶',
+          path: 'phase1/c-advanced.md'
+        },
+        {
+          title: 'C语言项目实战与《阶段笔试》',
+          path: 'phase1/c-projectcombat.md'
         }
       ]
     }

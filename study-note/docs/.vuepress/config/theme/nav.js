@@ -41,11 +41,7 @@ module.exports = [
           {
             text: 'React',
             link: '/web/advanced/react/basis'
-          },
-          // {
-          //   text: '库',
-          //   link: '/web/advanced/libs/'
-          // },
+          }
         ]
       }
     ]
@@ -111,10 +107,10 @@ module.exports = [
     ]
   },
   {
-    text: '课程',
+    text: '系统学习',
     items: [
       {
-        text: '拉勾大前端',
+        text: '大前端',
         link: '/course/lagou',
         items: [
           {
@@ -128,6 +124,16 @@ module.exports = [
           {
             text: 'Vue 源码与进阶',
             link: '/course/lagou/path3/module1/router.md'
+          }
+        ]
+      },
+      {
+        text: '嵌入式',
+        link: '/course/embedded',
+        items: [
+          {
+            text: 'Linux C语言编程',
+            link: '/course/embedded/phase1/c/'
           }
         ]
       }
@@ -146,8 +152,8 @@ module.exports = [
       }
     ]
   },
-  {
-    text: '其他',
-    link: '/other/偏激'
-  }
+  // {
+  //   text: '其他',
+  //   link: '/other/偏激'
+  // }
 ]
